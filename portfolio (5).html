@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Euan Springfield — Multimedia Content Producer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f2ea;
+    --ink: #131110;
+    --red: #e3241a;
+    --red-deep: #a8140d;
+    --blue: #1e4fd9;
+    --white: #ffffff;
+    --panel: #131110;
+    --line: rgba(19,17,16,0.1);
+    --sub: #55524c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .display {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  /* ============ DRIFTING BACKGROUND SHAPES ============ */
+  .drift-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .drift-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+  }
+  .drift-1 { width: 420px; height: 420px; background: var(--red); top: -120px; left: -140px; animation: drift1 26s ease-in-out infinite; }
+  .drift-2 { width: 340px; height: 340px; background: var(--blue); top: 40%; right: -160px; animation: drift2 32s ease-in-out infinite; }
+  .drift-3 { width: 260px; height: 260px; background: var(--red-deep); bottom: -100px; left: 30%; animation: drift3 22s ease-in-out infinite; opacity: 0.25; }
+
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(120px, 90px); }
+  }
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-110px, -70px); }
+  }
+  @keyframes drift3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(90px, -60px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drift-shape { animation: none; }
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  /* ============ NAV ============ */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.1rem 3rem;
+    border-bottom: 2px solid var(--ink);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(245,242,234,0.92);
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.7rem; }
+  .nav-badge {
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .nav-name { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.01em; }
+  .nav-name span { display: block; font-size: 0.68rem; font-weight: 600; color: var(--red); letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .nav-social {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .nav-social a {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .nav-social a svg { width: 14px; height: 14px; stroke: var(--ink); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-social a.filled svg { fill: var(--ink); stroke: none; }
+  .nav-social a:hover { background: var(--ink); transform: translateY(-2px); }
+  .nav-social a:hover svg { stroke: var(--white); fill: var(--white); }
+
+  .nav-links {
+    display: flex;
+    gap: 1.6rem;
+    list-style: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .nav-links a { transition: color 0.15s; }
+  .nav-links a:hover { color: var(--red); }
+
+  .nav-cta {
+    background: var(--red);
+    color: var(--white);
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--red-deep); transform: translateY(-1px); }
+
+  /* ============ HERO ============ */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 4rem 3rem 3rem;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--red);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.3rem;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5.6vw, 4.8rem);
+    line-height: 0.98;
+    color: var(--ink);
+    margin-bottom: 1.3rem;
+    max-width: 640px;
+  }
+  .hero-bio {
+    font-size: 16.5px;
+    color: var(--sub);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 1.6rem;
+  }
+  .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--red);
+    color: var(--white);
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 8px 20px rgba(227,36,26,0.35);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-primary:hover { background: var(--red-deep); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(227,36,26,0.4); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--ink);
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    border: 2px solid var(--ink);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
+
+  .hero-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--ink);
+    color: var(--white);
+    padding: 0.7rem 1.2rem 0.7rem 0.7rem;
+    border-radius: 14px;
+  }
+  .hero-stat-icon {
+    width: 50px; height: 35px;
+    background: var(--red);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-stat-icon svg { width: 20px; height: 20px; }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    color: var(--red);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  /* ============ WRITING CAROUSEL (hero visual) ============ */
+  .carousel-wrap {
+    position: relative;
+    background: var(--ink);
+    border-radius: 20px;
+    min-height: 340px;
+    overflow: hidden;
+  }
+  .carousel-kicker {
+    position: absolute;
+    top: 1.4rem;
+    left: 1.6rem;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    z-index: 3;
+  }
+  .carousel-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-right: 6px;
+  }
+  .carousel-stage { position: relative; min-height: 340px; }
+  .carousel-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.7rem;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+  }
+  .carousel-slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+  .carousel-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(19,17,16,0.05) 30%, rgba(19,17,16,0.92) 100%);
+    z-index: 0;
+  }
+  .carousel-slide > * { position: relative; z-index: 1; }
+
+  /* Each .bg-* class below is a generated pattern standing in for a real thumbnail.
+     To use an actual image instead, add a background-image line, e.g.:
+     background-image: url('your-thumbnail.jpg'), <the existing gradient>;
+     (keep the gradient after the comma — it becomes the dark-overlay-friendly fallback) */
+  .bg-sa-football {
+    background-color: #17100f;
+    background-image:
+      radial-gradient(circle at 78% 18%, rgba(227,36,26,0.55), transparent 55%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 2px, transparent 2px, transparent 34px);
+  }
+  .bg-sa-pride {
+    background-color: #101410;
+    background-image:
+      radial-gradient(circle at 18% 82%, rgba(30,168,90,0.5), transparent 55%),
+      radial-gradient(circle at 82% 18%, rgba(255,183,3,0.4), transparent 55%);
+  }
+  .bg-global {
+    background-color: #0b1120;
+    background-image:
+      radial-gradient(circle at 50% 45%, rgba(30,79,217,0.45), transparent 60%),
+      repeating-radial-gradient(circle at 50% 45%, transparent 0 38px, rgba(255,255,255,0.05) 38px 39px);
+  }
+  .bg-space {
+    background-color: #0a0a16;
+    background-image:
+      radial-gradient(2px 2px at 18% 28%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 68% 58%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 38% 78%, #fff, transparent),
+      radial-gradient(2px 2px at 86% 22%, #fff, transparent),
+      radial-gradient(1px 1px at 55% 42%, #fff, transparent),
+      radial-gradient(1px 1px at 25% 55%, #fff, transparent),
+      radial-gradient(circle at 50% 38%, rgba(227,36,26,0.3), transparent 60%);
+  }
+  .bg-transfer {
+    background-color: #14100a;
+    background-image:
+      radial-gradient(circle at 25% 20%, rgba(230,178,45,0.5), transparent 55%),
+      repeating-linear-gradient(70deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 30px);
+  }
+
+  .carousel-tag { font-size: 11px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; display: block; }
+  .carousel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--white); line-height: 1.05; margin-bottom: 0.6rem; }
+  .carousel-excerpt { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.55; margin-bottom: 1rem; max-width: 90%; }
+  .carousel-read {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--white);
+    background: var(--red);
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-self: flex-start;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 1.4rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+  .carousel-dot {
+    width: 22px; height: 4px;
+    background: rgba(255,255,255,0.35);
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0;
+  }
+  .carousel-dot.active { background: var(--red); }
+
+  /* ============ TICKER ============ */
+  .ticker {
+    background: var(--ink);
+    color: var(--white);
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .ticker-track {
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+    width: max-content;
+    animation: ticker 34s linear infinite;
+  }
+  .ticker-set {
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+    flex-shrink: 0;
+  }
+  .ticker-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 0;
+  }
+  .ticker-dot { color: var(--red); font-size: 0.8rem; }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+
+  /* ============ SECTIONS ============ */
+  .section {
+    padding: 4.5rem 3rem;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.3rem; border-bottom: 2px solid var(--ink); padding-bottom: 1.2rem; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--ink);
+  }
+  .section-sub { font-size: 14px; color: var(--sub); max-width: 380px; }
+
+  /* MATCH ANALYSIS (video) */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.75rem;
+  }
+  .video-card { cursor: pointer; display: block; }
+  .video-thumb {
+    aspect-ratio: 16/9;
+    background: #e5e1d5;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--ink);
+    transition: transform 0.15s;
+  }
+  .video-card:hover .video-thumb { transform: translateY(-4px); }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-play-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0.7rem;
+    background: linear-gradient(180deg, rgba(19,17,16,0) 55%, rgba(19,17,16,0.7) 100%);
+  }
+  .shirt-number {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn {
+    width: 38px; height: 38px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn svg { width: 14px; height: 14px; fill: var(--ink); margin-left: 2px; }
+  .video-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .video-meta { font-size: 12px; color: var(--sub); }
+  .marketing-feature { margin-bottom: 1.75rem; }
+
+  /* FROM EUANSPOV (writing) */
+  .writing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .writing-card {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .writing-card:hover { transform: translateY(-4px); box-shadow: 6px 6px 0 var(--ink); }
+  .writing-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .writing-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .writing-excerpt {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .writing-link {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 2px solid var(--red);
+    align-self: flex-start;
+    padding-bottom: 1px;
+  }
+
+  /* VISUAL WORK (design) */
+  .design-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+  .design-card {
+    aspect-ratio: 3/4;
+    background: #e5e1d5;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+  }
+  .design-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .design-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(19,17,16,0) 40%, rgba(227,36,26,0.85) 100%);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .design-card:hover .design-overlay { opacity: 1; }
+  .design-overlay-title { font-size: 0.95rem; font-weight: 800; color: var(--white); margin-bottom: 2px; }
+  .design-overlay-tag { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.03em; }
+
+  /* ============ CLOSING BAND ============ */
+  .closing-band {
+    background: var(--ink);
+    color: var(--white);
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin-bottom: 1.4rem;
+    position: relative;
+  }
+  .closing-band .btn-primary { position: relative; }
+  .closing-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    position: relative;
+  }
+  .closing-social a {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .closing-social a svg { width: 16px; height: 16px; stroke: var(--white); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .closing-social a.filled svg { fill: var(--white); stroke: none; }
+  .closing-social a:hover { background: var(--red); border-color: var(--red); }
+
+  footer {
+    padding: 1.4rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--sub);
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .carousel-wrap { order: -1; }
+    .design-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.4rem; }
+    .nav-links { display: none; }
+    .hero { padding: 2.5rem 1.4rem 2rem; }
+    .section { padding: 3rem 1.4rem; }
+    .design-grid { grid-template-columns: repeat(2, 1fr); }
+    .closing-band { padding: 3rem 1.4rem; }
+    footer { padding: 1.2rem 1.4rem; flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="drift-layer">
+    <div class="drift-shape drift-1"></div>
+    <div class="drift-shape drift-2"></div>
+    <div class="drift-shape drift-3"></div>
+  </div>
+
+  <div class="page">
+
+    <!-- ============ NAV ============ -->
+    <nav>
+      <div class="nav-brand">
+        <span class="nav-badge">ES</span>
+        <span class="nav-name">Euan Springfield<span>Multimedia Content Producer</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#analysis">Analysis</a></li>
+        <li><a href="#notebook">Writing</a></li>
+        <li><a href="#marketing">Marketing</a></li>
+      </ul>
+      <div class="nav-social">
+        <a href="mailto:springfielde7@gmail.com" title="Email" aria-label="Email">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/euan-springfield-67352a272/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://substack.com/@euanspov" target="_blank" rel="noopener" title="Substack" aria-label="Substack">
+          <svg viewBox="0 0 24 24"><path d="M3 5h18M3 9h18M3 19l9-5 9 5V13H3z"/></svg>
+        </a>
+        <a class="filled" href="https://medium.com/@euanspov" target="_blank" rel="noopener" title="Medium" aria-label="Medium">
+          <svg viewBox="0 0 24 24"><path d="M22,6.41668h-.791a.89762.89762,0,0,0-.709.69479v9.83021a.83938.83938,0,0,0,.709.64164H22V19.9167H14.83334V17.58332h1.50008V7.25h-.07353L12.75706,19.9167H10.04512L6.58751,7.25H6.5V17.58332H8V19.9167H2V17.58332h.76835A.841.841,0,0,0,3.5,16.94168V7.11139a.89588.89588,0,0,0-.73166-.69479H2V4.0833H9.50266L11.96593,13.25h.068L14.51976,4.0833H22V6.41668"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
+        </a>
+        <a class="filled" href="https://www.tiktok.com/@1commongoal" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+      <a class="nav-cta" href="mailto:springfielde7@gmail.com">Get in touch</a>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div>
+        <span class="hero-eyebrow">Multimedia Content Producer</span>
+        <h1>Sport, told differently.</h1>
+        <p class="hero-bio">
+          Mostly football, sometimes more. I make video essays, write long-form
+          and design visuals that get inside the game — based in Cape Town,
+          published on YouTube, Substack, Medium and beyond.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener">Watch the latest</a>
+          <a class="btn-secondary" href="#notebook">Read the writing</a>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-icon">
+            <svg viewBox="0 0 24 24"><polygon points="9,6.5 9,17.5 18,12" fill="#ffffff"/></svg>
+          </span>
+          <span>
+            <span class="hero-stat-num">400K+</span>
+            <span class="hero-stat-label">Views across YouTube &amp; TikTok<br>Common Goal Media</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="carousel-wrap" id="carousel" role="region" aria-label="Rotating writing pieces">
+        <span class="carousel-kicker">From The Common Goal</span>
+        <div class="carousel-stage">
+
+          <a class="carousel-slide active bg-sa-football" data-index="0" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">The Problem With South African Football</p>
+            <p class="carousel-excerpt">Why grassroots talent fails to materialise at professional level.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+          <a class="carousel-slide bg-sa-pride" data-index="1" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">NO DNA JUST RSA</p>
+            <p class="carousel-excerpt">How South Africa dominates global sports.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+          <a class="carousel-slide bg-global" data-index="2" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
+            <span class="carousel-tag">Medium · Long-form</span>
+            <p class="carousel-title">The World Has Changed</p>
+            <p class="carousel-excerpt">The major political and global shifts we're living through.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+          <a class="carousel-slide bg-space" data-index="3" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
+            <span class="carousel-tag">Children's Book · Contributing Writer</span>
+            <p class="carousel-title">Tuning into Our Universe</p>
+            <p class="carousel-excerpt">A science publication for the South African Radio Astronomy Observatory.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+          <a class="carousel-slide bg-transfer" data-index="4" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">The Transfer Market Is Broken</p>
+            <p class="carousel-excerpt">A look at why football's transfer system no longer works the way it should.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </header>
+
+    <!-- ============ TICKER ============ -->
+    <div class="ticker">
+      <div class="ticker-track">
+        <div class="ticker-set">
+          <span class="ticker-word">FOOTBALL</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">TACTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">CULTURE</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">ANALYTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">DESIGN</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">SCRIPTING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">MARKETING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">EDITING</span><span class="ticker-dot">•</span>
+        </div>
+        <div class="ticker-set" aria-hidden="true">
+          <span class="ticker-word">FOOTBALL</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">TACTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">CULTURE</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">ANALYTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">DESIGN</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">SCRIPTING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">MARKETING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">EDITING</span><span class="ticker-dot">•</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ VIDEO ANALYSIS ============ -->
+    <section class="section" id="analysis">
+      <div class="section-header">
+        <h2 class="section-title">Video Analysis</h2>
+        <p class="section-sub">Video essays on tactics, teams and the stories behind the scoreline.</p>
+      </div>
+      <div class="video-grid">
+
+        <a class="video-card" href="https://youtu.be/vn-4C3eZmvw?si=Bd5eHjgQTg4TSoWK" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/vn-4C3eZmvw/maxresdefault.jpg" alt="Why South Africa Wins More Than It Should video thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">9</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Why South Africa Wins More Than It Should</p>
+          <p class="video-meta">YouTube · 7 min</p>
+        </a>
+
+        <a class="video-card" href="https://www.youtube.com/watch?v=zduy6L9UKsg" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/zduy6L9UKsg/maxresdefault.jpg" alt="Arsenal Are Control Freaks video thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">10</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Arsenal Are Control Freaks</p>
+          <p class="video-meta">YouTube · 6 min</p>
+        </a>
+
+        <a class="video-card" href="https://youtu.be/Kk2K2CpuHuc" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/Kk2K2CpuHuc/maxresdefault.jpg" alt="Why Transfer Fees Make No Sense Anymore video thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/Kk2K2CpuHuc/hqdefault.jpg';" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">8</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">New Match Breakdown</p>
+          <p class="video-meta">YouTube</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ FROM EUANSPOV (writing) ============ -->
+    <section class="section" id="notebook">
+      <div class="section-header">
+        <h2 class="section-title">From The Common Goal</h2>
+        <p class="section-sub">Essays and features on football, culture and beyond.</p>
+      </div>
+      <div class="writing-grid">
+
+        <a class="writing-card" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
+          <span class="writing-tag">Children's Book · Contributing Writer</span>
+          <p class="writing-title">Tuning into Our Universe</p>
+          <p class="writing-excerpt">A children's science publication produced for the South African Radio Astronomy Observatory (SARAO). My contribution is credited in the publication.</p>
+          <span class="writing-link">View publication</span>
+        </a>
+
+        <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">The Problem With South African Football</p>
+          <p class="writing-excerpt">Why does grassroots talent fail to materialise at professional level?</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">NO DNA JUST RSA</p>
+          <p class="writing-excerpt">A deep dive into how South Africa dominates global sports.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
+          <span class="writing-tag">Medium · Long-form</span>
+          <p class="writing-title">The World Has Changed</p>
+          <p class="writing-excerpt">Addressing the major political and global shifts we're experiencing.</p>
+          <span class="writing-link">Read on Medium</span>
+        </a>
+
+        <a class="writing-card" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">The Transfer Market Is Broken</p>
+          <p class="writing-excerpt">A look at why football's transfer system no longer works the way it should.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ MARKETING & DESIGN ============ -->
+    <section class="section" id="marketing">
+      <div class="section-header">
+        <h2 class="section-title">Marketing &amp; Design</h2>
+        <p class="section-sub">Freelance video, design and brand work for clients.</p>
+      </div>
+      <div class="video-grid marketing-feature">
+
+        <a class="video-card" href="https://youtu.be/0e98EctMJjI" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/0e98EctMJjI/maxresdefault.jpg" alt="Freelance Marketing Work video thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">7</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Freelance Marketing Work</p>
+          <p class="video-meta">YouTube · 2 min</p>
+        </a>
+
+        <a class="video-card" href="https://youtu.be/0QiHGO1Q7Ow" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/0QiHGO1Q7Ow/maxresdefault.jpg" alt="Marketing and design piece thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">11</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">New Marketing Project</p>
+          <p class="video-meta">YouTube</p>
+        </a>
+
+      </div>
+      <div class="design-grid">
+
+        <div class="design-card">
+          <img src="Poster3.png" alt="SEC Tutor Academy poster design" />
+          <div class="design-overlay">
+            <p class="design-overlay-title">Client Work</p>
+            <p class="design-overlay-tag">Poster Design</p>
+          </div>
+        </div>
+
+        <div class="design-card">
+          <img src="Poster4.png" alt="SEC Tutor Academy poster design" />
+          <div class="design-overlay">
+            <p class="design-overlay-title">Client Work</p>
+            <p class="design-overlay-tag">Poster Design</p>
+          </div>
+        </div>
+
+        <div class="design-card">
+          <img src="Poster5.png" alt="SEC Tutor Academy poster design" />
+          <div class="design-overlay">
+            <p class="design-overlay-title">Client Work</p>
+            <p class="design-overlay-tag">Video Edit</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ CLOSING BAND ============ -->
+    <section class="closing-band" id="contact">
+      <h2>Got a story worth telling?<br>Let's talk.</h2>
+      <a class="btn-primary" href="mailto:springfielde7@gmail.com">springfielde7@gmail.com</a>
+      <div class="closing-social">
+        <a href="https://www.linkedin.com/in/euan-springfield-67352a272/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://substack.com/@euanspov" target="_blank" rel="noopener" title="Substack" aria-label="Substack">
+          <svg viewBox="0 0 24 24"><path d="M3 5h18M3 9h18M3 19l9-5 9 5V13H3z"/></svg>
+        </a>
+        <a class="filled" href="https://medium.com/@euanspov" target="_blank" rel="noopener" title="Medium" aria-label="Medium">
+          <svg viewBox="0 0 24 24"><path d="M22,6.41668h-.791a.89762.89762,0,0,0-.709.69479v9.83021a.83938.83938,0,0,0,.709.64164H22V19.9167H14.83334V17.58332h1.50008V7.25h-.07353L12.75706,19.9167H10.04512L6.58751,7.25H6.5V17.58332H8V19.9167H2V17.58332h.76835A.841.841,0,0,0,3.5,16.94168V7.11139a.89588.89588,0,0,0-.73166-.69479H2V4.0833H9.50266L11.96593,13.25h.068L14.51976,4.0833H22V6.41668"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
+        </a>
+        <a class="filled" href="https://www.tiktok.com/@1commongoal" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Euan Springfield</span>
+      <span>Cape Town, South Africa</span>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      var slides = document.querySelectorAll('.carousel-slide');
+      var dotsWrap = document.getElementById('carouselDots');
+      var current = 0;
+      var timer;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      slides.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Show writing piece ' + (i + 1));
+        dot.addEventListener('click', function (e) {
+          e.preventDefault();
+          goTo(i);
+          resetTimer();
+        });
+        dotsWrap.appendChild(dot);
+      });
+      var dots = dotsWrap.querySelectorAll('.carousel-dot');
+
+      function goTo(i) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = i;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function next() { goTo((current + 1) % slides.length); }
+
+      function resetTimer() {
+        clearInterval(timer);
+        if (!reduceMotion) timer = setInterval(next, 4200);
+      }
+
+      resetTimer();
+
+      var carousel = document.getElementById('carousel');
+      carousel.addEventListener('mouseenter', function () { clearInterval(timer); });
+      carousel.addEventListener('mouseleave', resetTimer);
+    })();
+  </script>
+
+</body>
+</html>
