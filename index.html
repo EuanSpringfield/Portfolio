@@ -268,6 +268,7 @@
     color: var(--white);
     padding: 0.7rem 1.2rem 0.7rem 0.7rem;
     border-radius: 14px;
+    align-self: flex-start;
   }
   .hero-stat-icons {
     display: flex;
@@ -281,7 +282,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.15s, opacity 0.15s;
   }
+  .hero-stat-icon-yt:hover, .hero-stat-icon-tt:hover { transform: translateY(-2px); opacity: 0.9; }
   .hero-stat-icon-yt { background: var(--red); }
   .hero-stat-icon-tt { background: var(--white); }
   .hero-stat-icon-yt svg, .hero-stat-icon-tt svg { width: 16px; height: 16px; }
@@ -298,6 +301,7 @@
     color: rgba(255,255,255,0.8);
     text-transform: uppercase;
     letter-spacing: 0.02em;
+    text-align: center;
   }
   .hero-stat-handle { color: #ffd400; font-weight: 800; }
 
@@ -306,6 +310,7 @@
     flex-direction: column;
     gap: 1.2rem;
   }
+  .hero-visual .hero-stat { order: -1; }
 
   /* ============ WRITING CAROUSEL (hero visual) ============ */
   .carousel-wrap {
@@ -420,7 +425,7 @@
     background-position: center;
   }
 
-  .carousel-tag { font-size: 11px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; display: block; }
+  .carousel-tag { font-size: 11px; font-weight: 700; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; display: block; }
   .carousel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--white); line-height: 1.05; margin-bottom: 0.6rem; }
   .carousel-excerpt { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.55; margin-bottom: 1rem; max-width: 90%; }
   .carousel-read {
@@ -574,6 +579,47 @@
   .video-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
   .video-meta { font-size: 12px; color: var(--sub); }
   .marketing-feature { margin-bottom: 1.75rem; }
+  .kpi-row {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.25rem;
+  }
+  .kpi-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--ink);
+    color: var(--white);
+    padding: 0.9rem 1.3rem;
+    border-radius: 14px;
+  }
+  .kpi-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    color: var(--red);
+    line-height: 1;
+  }
+  .kpi-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    max-width: 120px;
+  }
+  .kpi-icons { display: flex; gap: 4px; flex-shrink: 0; }
+  .kpi-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .kpi-icon svg { width: 13px; height: 13px; }
+  .kpi-icon-fb { background: #1877F2; }
+  .kpi-icon-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .kpi-icon-li { background: #0A66C2; }
+  .kpi-icon-trend {
+    background: rgba(227,36,26,0.18);
+    width: 32px; height: 32px;
+  }
+  .kpi-icon-trend svg { width: 18px; height: 18px; }
 
   /* FROM EUANSPOV (writing) */
   .writing-grid {
@@ -637,6 +683,16 @@
   .writing-card.has-thumb .writing-title { color: var(--white); }
   .writing-card.has-thumb .writing-excerpt { color: rgba(255,255,255,0.75); }
   .writing-card.has-thumb .writing-link { color: var(--white); }
+  .writing-card.has-thumb .writing-tag {
+    color: var(--red);
+    -webkit-text-stroke: 0.6px #000000;
+    text-shadow:
+      -1px -1px 0 #000000,
+      1px -1px 0 #000000,
+      -1px 1px 0 #000000,
+      1px 1px 0 #000000;
+    paint-order: stroke fill;
+  }
 
   /* VISUAL WORK (design) */
   .design-grid {
@@ -712,7 +768,7 @@
   /* MOBILE */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
-    .carousel-wrap { order: -1; }
+    .hero-visual { order: -1; }
     .design-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
@@ -819,7 +875,7 @@
           </a>
 
           <a class="carousel-slide bg-universe" data-index="3" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
-            <span class="carousel-tag">Children's Book · Contributing Writer</span>
+            <span class="carousel-tag">Literacy Project · Contributing Writer</span>
             <p class="carousel-title">Tuning into Our Universe</p>
             <p class="carousel-excerpt">A science publication for the South African Radio Astronomy Observatory.</p>
             <span class="carousel-read">View piece</span>
@@ -865,12 +921,12 @@
 
       <div class="hero-stat">
         <div class="hero-stat-icons">
-          <span class="hero-stat-icon-yt">
+          <a class="hero-stat-icon-yt" href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener" aria-label="YouTube">
             <svg viewBox="0 0 24 24"><polygon points="9,6.5 9,17.5 18,12" fill="#ffffff"/></svg>
-          </span>
-          <span class="hero-stat-icon-tt">
+          </a>
+          <a class="hero-stat-icon-tt" href="https://www.tiktok.com/@thecommongoal" target="_blank" rel="noopener" aria-label="TikTok">
             <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="#131110"/></svg>
-          </span>
+          </a>
         </div>
         <span>
           <span class="hero-stat-num">400K+</span>
@@ -962,7 +1018,7 @@
       <div class="writing-grid">
 
         <a class="writing-card has-thumb" style="background-image:url('images/tuneintoouruniverse.jpeg.png')" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
-          <span class="writing-tag">Children's Book · Contributing Writer</span>
+          <span class="writing-tag">Literacy Project · Contributing Writer</span>
           <p class="writing-title">Tuning into Our Universe</p>
           <p class="writing-excerpt">A children's science publication produced for the South African Radio Astronomy Observatory (SARAO). My contribution is credited in the publication.</p>
           <span class="writing-link">View publication</span>
@@ -1026,6 +1082,37 @@
         <h2 class="section-title">Marketing &amp; Design</h2>
         <p class="section-sub">Freelance video, design and brand work for clients.</p>
       </div>
+      <div class="kpi-row">
+        <div class="kpi-chip">
+          <div class="kpi-icons">
+            <span class="kpi-icon kpi-icon-fb">
+              <svg viewBox="0 0 24 24"><path d="M13.5 9.2H15V6.6h-1.7c-2.1 0-3.4 1.3-3.4 3.5V11H8v2.6h1.9V20h2.6v-6.4H15l.4-2.6h-2.9v-.8c0-.7.3-1 1-1Z" fill="#ffffff"/></svg>
+            </span>
+            <span class="kpi-icon kpi-icon-ig">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#ffffff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#ffffff" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.1" fill="#ffffff"/></svg>
+            </span>
+            <span class="kpi-icon kpi-icon-li">
+              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" fill="none" stroke="#ffffff" stroke-width="1.8"/><rect x="2" y="9" width="4" height="12" fill="none" stroke="#ffffff" stroke-width="1.8"/><circle cx="4" cy="4" r="2" fill="none" stroke="#ffffff" stroke-width="1.8"/></svg>
+            </span>
+          </div>
+          <span>
+            <span class="kpi-num">10K+</span>
+            <span class="kpi-label">Impressions across Facebook, Instagram &amp; LinkedIn</span>
+          </span>
+        </div>
+        <div class="kpi-chip">
+          <span class="kpi-icon kpi-icon-trend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e3241a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </span>
+          <span>
+            <span class="kpi-num">45%</span>
+            <span class="kpi-label">Increase in client acquisition</span>
+          </span>
+        </div>
+      </div>
       <div class="video-grid marketing-feature">
 
         <a class="video-card" href="https://youtu.be/0e98EctMJjI" target="_blank" rel="noopener">
@@ -1036,7 +1123,7 @@
               <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
             </div>
           </div>
-          <p class="video-title">VIDEO ADVERT: SEC ACADEMY</p>
+          <p class="video-title">Freelance Marketing Work</p>
           <p class="video-meta">YouTube · 2 min</p>
         </a>
 
@@ -1048,7 +1135,7 @@
               <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
             </div>
           </div>
-          <p class="video-title">VIDEO AD:SEC ACADEMY</p>
+          <p class="video-title">Freelance Marketing Work</p>
           <p class="video-meta">YouTube</p>
         </a>
 
