@@ -676,7 +676,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(19,17,16,0.1) 25%, rgba(19,17,16,0.92) 100%);
+    background: linear-gradient(180deg, rgba(19,17,16,0.35) 15%, rgba(19,17,16,0.93) 100%);
     z-index: 0;
   }
   .writing-card.has-thumb > * { position: relative; z-index: 1; }
@@ -690,10 +690,14 @@
       1px 1px 0 #000000;
     paint-order: stroke fill;
   }
-  .writing-card.has-thumb .writing-excerpt { color: rgba(255,255,255,0.75); }
+  .writing-card.has-thumb .writing-excerpt { color: rgba(255,255,255,0.95); text-shadow: 0 1px 3px rgba(0,0,0,0.7); }
   .writing-card.has-thumb .writing-link { color: var(--white); }
   .writing-card.has-thumb .writing-tag {
     color: var(--red);
+    background: rgba(0,0,0,0.55);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
   }
 
   /* VISUAL WORK (design) */
