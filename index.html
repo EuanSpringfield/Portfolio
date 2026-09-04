@@ -1,830 +1,1041 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Euan Springfield — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Euan Springfield — Multimedia Content Producer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f2ea;
+    --ink: #131110;
+    --red: #e3241a;
+    --red-deep: #a8140d;
+    --blue: #1e4fd9;
+    --white: #ffffff;
+    --panel: #131110;
+    --line: rgba(19,17,16,0.1);
+    --sub: #55524c;
+  }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      color: #1a1a18;
-      background: #faf9f6;
-      font-size: 15px;
-      line-height: 1.6;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    a { color: inherit; text-decoration: none; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-    /* NAV */
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 3rem;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      background: #faf9f6;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .nav-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      letter-spacing: -0.01em;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #6b6b68;
-    }
-    .nav-links a:hover { color: #1a1a18; }
+  a { color: inherit; text-decoration: none; }
 
-    /* HERO */
-    .hero {
-      padding: 5rem 3rem 4rem;
-      max-width: 1180px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-    .hero-inner {
-      display: flex;
-      align-items: flex-start;
-      gap: 3.5rem;
-    }
-    .hero-main {
-      flex: 1 1 460px;
-      min-width: 0;
-    }
-    .hero-eyebrow {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8a6a4a;
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.6rem, 5vw, 4rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: #1a1a18;
-      margin-bottom: 1.5rem;
-      max-width: 700px;
-    }
-    .hero h1 em { font-style: italic; color: #8a6a4a; }
-    .hero-bio {
-      font-size: 16px;
-      color: #4a4a48;
-      max-width: 520px;
-      line-height: 1.75;
-      margin-bottom: 2rem;
-    }
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #1a1a18;
-      color: #faf9f6;
-      padding: 0.65rem 1.4rem;
-      border-radius: 2px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      border: none;
-      transition: background 0.15s;
-    }
-    .hero-cta:hover { background: #3a3a38; }
+  .display {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.01em;
+  }
 
-    /* FEATURED WORK CAROUSEL */
-    .hero-showcase {
-      flex: 1 1 320px;
-      max-width: 360px;
-      width: 100%;
-    }
-    .showcase-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #9a9a96;
-      margin-bottom: 0.75rem;
-    }
-    .showcase-viewport {
-      position: relative;
-      border: 1px solid rgba(0,0,0,0.08);
-      background: #fff;
-      overflow: hidden;
-      min-height: 340px;
-    }
-    .showcase-slide {
-      display: none;
-      flex-direction: column;
-      gap: 0.55rem;
-      padding: 1.5rem;
-    }
-    .showcase-slide.is-active {
-      display: flex;
-      animation: showcaseFade 0.45s ease;
-    }
-    @keyframes showcaseFade {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .showcase-tag {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8a6a4a;
-    }
-    .showcase-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.25rem;
-      line-height: 1.3;
-      color: #1a1a18;
-    }
-    .showcase-excerpt {
-      font-size: 13px;
-      color: #6b6b68;
-      line-height: 1.6;
-    }
-    .showcase-cta {
-      font-size: 12px;
-      font-weight: 500;
-      color: #8a6a4a;
-      letter-spacing: 0.04em;
-      margin-top: auto;
-      padding-top: 0.5rem;
-    }
-    .showcase-thumb {
-      aspect-ratio: 16/9;
-      background: #e8e6e0;
-      overflow: hidden;
-      margin: -1.5rem -1.5rem 0.2rem;
-    }
-    .showcase-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .showcase-stats {
-      display: flex;
-      gap: 1.1rem;
-      font-size: 12px;
-      color: #6b6b68;
-    }
-    .showcase-stats span {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .stat-icon {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .showcase-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 0.9rem;
-    }
-    .showcase-arrow {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.12);
-      background: none;
-      color: #4a4a48;
-      font-size: 16px;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .showcase-arrow:hover { border-color: #8a6a4a; color: #8a6a4a; }
-    .showcase-dots {
-      display: flex;
-      gap: 6px;
-    }
-    .showcase-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 3px;
-      border: none;
-      background: #d8d6cf;
-      padding: 0;
-      cursor: pointer;
-      transition: background 0.15s, width 0.15s;
-    }
-    .showcase-dot.is-active { background: #8a6a4a; width: 16px; }
+  /* ============ DRIFTING BACKGROUND SHAPES ============ */
+  .drift-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .drift-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+  }
+  .drift-1 { width: 420px; height: 420px; background: var(--red); top: -120px; left: -140px; animation: drift1 26s ease-in-out infinite; }
+  .drift-2 { width: 340px; height: 340px; background: var(--blue); top: 40%; right: -160px; animation: drift2 32s ease-in-out infinite; }
+  .drift-3 { width: 260px; height: 260px; background: var(--red-deep); bottom: -100px; left: 30%; animation: drift3 22s ease-in-out infinite; opacity: 0.25; }
 
-    /* SECTIONS */
-    .section {
-      padding: 4rem 3rem;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-    .section-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #9a9a96;
-      min-width: 80px;
-    }
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
-      color: #1a1a18;
-      letter-spacing: -0.01em;
-    }
+  @keyframes drift1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(120px, 90px); }
+  }
+  @keyframes drift2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-110px, -70px); }
+  }
+  @keyframes drift3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(90px, -60px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drift-shape { animation: none; }
+  }
 
-    /* WRITING */
-    .writing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1px;
-      background: rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-    .writing-card {
-      background: #faf9f6;
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: background 0.12s;
-    }
-    .writing-card:hover { background: #f3f1eb; }
-    .writing-tag {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8a6a4a;
-    }
-    .writing-pill {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 0.3rem 0.8rem;
-  margin: 0.2rem 0 0.4rem;
-  border-radius: 999px;
-  background: rgba(138, 106, 74, 0.12);
-  color: #8a6a4a;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-}
+  .page { position: relative; z-index: 1; }
 
-    .writing-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      line-height: 1.3;
-      color: #1a1a18;
-    }
-    .writing-excerpt {
-      font-size: 13px;
-      color: #6b6b68;
-      line-height: 1.6;
-      flex: 1;
-    }
-    .writing-link {
-      font-size: 12px;
-      font-weight: 500;
-      color: #8a6a4a;
-      letter-spacing: 0.04em;
-      margin-top: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+  /* ============ NAV ============ */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.1rem 3rem;
+    border-bottom: 2px solid var(--ink);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(245,242,234,0.92);
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.7rem; }
+  .nav-badge {
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .nav-name { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.01em; }
+  .nav-tagline { display: block; font-size: 0.68rem; font-weight: 600; color: var(--red); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.15rem; }
+  .nav-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .nav-tag-line {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: var(--sub);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.25;
+  }
+  .nav-tag-line::before {
+    content: "•";
+    color: var(--ink);
+    margin-right: 0.35rem;
+    font-size: 0.7em;
+  }
 
-    /* VIDEO */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .video-card { cursor: pointer; }
-    .video-thumb {
-      aspect-ratio: 16/9;
-      background: #e8e6e0;
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.75rem;
-      overflow: hidden;
-      position: relative;
-    }
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .video-play-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.2);
-    }
-    .play-btn {
-      width: 48px;
-      height: 48px;
-      background: rgba(26,26,24,0.85);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .play-btn svg { width: 18px; height: 18px; fill: #faf9f6; margin-left: 2px; }
-    .video-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      color: #b0aea8;
-      font-size: 12px;
-      text-align: center;
-      padding: 1rem;
-    }
-    .video-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1rem;
-      color: #1a1a18;
-      margin-bottom: 4px;
-    }
-    .video-meta { font-size: 12px; color: #9a9a96; }
+  .nav-social {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .nav-social a {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .nav-social a svg { width: 14px; height: 14px; stroke: var(--ink); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-social a.filled svg { fill: var(--ink); stroke: none; }
+  .nav-social a:hover { background: var(--ink); transform: translateY(-2px); }
+  .nav-social a:hover svg { stroke: var(--white); fill: var(--white); }
 
-    /* DESIGN */
-    .design-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(0,0,0,0.08);
-      border: 1px solid rgba(0,0,0,0.08);
-    }
-    .design-card {
-      aspect-ratio: 3/4;
-      background: #e8e6e0;
-      position: relative;
-      overflow: hidden;
-    }
-    .design-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .design-card:hover .design-overlay { opacity: 1; }
-    .design-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(26,26,24,0.82);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 1.25rem;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .design-overlay-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1rem;
-      color: #faf9f6;
-      margin-bottom: 4px;
-    }
-    .design-overlay-tag {
-      font-size: 11px;
-      color: rgba(250,249,246,0.6);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .design-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: #b0aea8;
-      text-align: center;
-      padding: 1rem;
-    }
+  .nav-links {
+    display: flex;
+    gap: 1.6rem;
+    list-style: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .nav-links a { transition: color 0.15s; }
+  .nav-links a:hover { color: var(--red); }
 
-    /* CONTACT */
-    .contact-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-    .contact-text {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      color: #1a1a18;
-      max-width: 480px;
-      line-height: 1.3;
-    }
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      align-items: flex-end;
-    }
-    .contact-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: #4a4a48;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .contact-link:hover { color: #8a6a4a; }
-    .contact-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-cta {
+    background: var(--red);
+    color: var(--white);
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--red-deep); transform: translateY(-1px); }
 
-    footer {
-      padding: 1.5rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: #b0aea8;
-      letter-spacing: 0.04em;
-    }
+  /* ============ HERO ============ */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+    gap: 2.5rem;
+    padding: 4rem 3rem 3rem;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--red);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.3rem;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5.6vw, 4.8rem);
+    line-height: 0.98;
+    color: var(--ink);
+    margin-bottom: 1.3rem;
+    max-width: 640px;
+  }
+  .hero h1 .accent {
+    position: relative;
+    display: inline-block;
+    color: var(--ink);
+    -webkit-text-stroke: 2px #ffffff;
+    text-shadow:
+      -1.5px -1.5px 0 #ffffff,
+      1.5px -1.5px 0 #ffffff,
+      -1.5px 1.5px 0 #ffffff,
+      1.5px 1.5px 0 #ffffff;
+    paint-order: stroke fill;
+  }
+  .hero h1 .accent::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.14em;
+    height: 6px;
+    background: var(--red);
+    border-radius: 3px;
+  }
+  .hero-bio {
+    font-size: 16.5px;
+    color: var(--sub);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 1.6rem;
+  }
+  .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--red);
+    color: var(--white);
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 8px 20px rgba(227,36,26,0.35);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-primary:hover { background: var(--red-deep); transform: translateY(-2px); box-shadow: 0 12px 24px rgba(227,36,26,0.4); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--ink);
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    border: 2px solid var(--ink);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--white); transform: translateY(-2px); }
 
-    /* MOBILE */
-    @media (max-width: 600px) {
-      nav { padding: 1.25rem 1.5rem; }
-      .nav-links { gap: 1rem; }
-      .hero { padding: 3rem 1.5rem 2.5rem; }
-      .hero-inner { flex-direction: column; gap: 2.5rem; }
-      .hero-showcase { max-width: 100%; }
-      .section { padding: 3rem 1.5rem; }
-      .design-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-row { flex-direction: column; }
-      .contact-links { align-items: flex-start; }
-      footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 4px; }
-    }
-  </style>
+  .hero-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--ink);
+    color: var(--white);
+    padding: 0.7rem 1.2rem 0.7rem 0.7rem;
+    border-radius: 14px;
+  }
+  .hero-stat-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .hero-stat-icon-yt, .hero-stat-icon-tt {
+    width: 48px; height: 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-stat-icon-yt { background: var(--red); }
+  .hero-stat-icon-tt { background: var(--white); }
+  .hero-stat-icon-yt svg, .hero-stat-icon-tt svg { width: 16px; height: 16px; }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    color: var(--red);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .hero-stat-handle { color: #ffd400; font-weight: 800; }
+
+  /* ============ WRITING CAROUSEL (hero visual) ============ */
+  .carousel-wrap {
+    position: relative;
+    background: var(--ink);
+    border-radius: 20px;
+    min-height: 340px;
+    overflow: hidden;
+  }
+  .carousel-kicker {
+    position: absolute;
+    top: 1.4rem;
+    left: 1.6rem;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    z-index: 3;
+  }
+  .carousel-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-right: 6px;
+  }
+  .carousel-stage { position: relative; min-height: 340px; }
+  .carousel-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.7rem;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+  }
+  .carousel-slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+  .carousel-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(19,17,16,0.05) 30%, rgba(19,17,16,0.92) 100%);
+    z-index: 0;
+  }
+  .carousel-slide > * { position: relative; z-index: 1; }
+
+  /* Each .bg-* class below is a generated pattern standing in for a real thumbnail.
+     To use an actual image instead, add a background-image line, e.g.:
+     background-image: url('your-thumbnail.jpg'), <the existing gradient>;
+     (keep the gradient after the comma — it becomes the dark-overlay-friendly fallback) */
+  .bg-sa-football {
+    background-color: #17100f;
+    background-image:
+      radial-gradient(circle at 78% 18%, rgba(227,36,26,0.55), transparent 55%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 2px, transparent 2px, transparent 34px);
+  }
+  .bg-sa-pride {
+    background-color: #101410;
+    background-image:
+      radial-gradient(circle at 18% 82%, rgba(30,168,90,0.5), transparent 55%),
+      radial-gradient(circle at 82% 18%, rgba(255,183,3,0.4), transparent 55%);
+  }
+  .bg-global {
+    background-color: #0b1120;
+    background-image:
+      radial-gradient(circle at 50% 45%, rgba(30,79,217,0.45), transparent 60%),
+      repeating-radial-gradient(circle at 50% 45%, transparent 0 38px, rgba(255,255,255,0.05) 38px 39px);
+  }
+  .bg-space {
+    background-color: #0a0a16;
+    background-image:
+      radial-gradient(2px 2px at 18% 28%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 68% 58%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 38% 78%, #fff, transparent),
+      radial-gradient(2px 2px at 86% 22%, #fff, transparent),
+      radial-gradient(1px 1px at 55% 42%, #fff, transparent),
+      radial-gradient(1px 1px at 25% 55%, #fff, transparent),
+      radial-gradient(circle at 50% 38%, rgba(227,36,26,0.3), transparent 60%);
+  }
+  .bg-transfer {
+    background-color: #14100a;
+    background-image:
+      radial-gradient(circle at 25% 20%, rgba(230,178,45,0.5), transparent 55%),
+      repeating-linear-gradient(70deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 30px);
+  }
+
+  .carousel-tag { font-size: 11px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; display: block; }
+  .carousel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--white); line-height: 1.05; margin-bottom: 0.6rem; }
+  .carousel-excerpt { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.55; margin-bottom: 1rem; max-width: 90%; }
+  .carousel-read {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--white);
+    background: var(--red);
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-self: flex-start;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 1.4rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+  .carousel-dot {
+    width: 22px; height: 4px;
+    background: rgba(255,255,255,0.35);
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0;
+  }
+  .carousel-dot.active { background: var(--red); }
+
+  /* ============ TICKER ============ */
+  .ticker {
+    background: var(--ink);
+    color: var(--white);
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .ticker-track {
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+    width: max-content;
+    animation: ticker 34s linear infinite;
+  }
+  .ticker-set {
+    display: flex;
+    align-items: center;
+    gap: 3.2rem;
+    flex-shrink: 0;
+  }
+  .ticker-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 0;
+  }
+  .ticker-dot { color: var(--red); font-size: 0.8rem; }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+
+  /* ============ SECTIONS ============ */
+  .section {
+    padding: 4.5rem 3rem;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.3rem; border-bottom: 2px solid var(--ink); padding-bottom: 1.2rem; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--ink);
+  }
+  .section-sub { font-size: 14px; color: var(--sub); max-width: 380px; }
+
+  /* MATCH ANALYSIS (video) */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.75rem;
+  }
+  .video-card { cursor: pointer; display: block; }
+  .video-thumb {
+    aspect-ratio: 16/9;
+    background: #e5e1d5;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--ink);
+    transition: transform 0.15s;
+  }
+  .video-card:hover .video-thumb { transform: translateY(-4px); }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-play-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0.7rem;
+    background: linear-gradient(180deg, rgba(19,17,16,0) 55%, rgba(19,17,16,0.7) 100%);
+  }
+  .shirt-number {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn {
+    width: 38px; height: 38px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn svg { width: 14px; height: 14px; fill: var(--ink); margin-left: 2px; }
+  .video-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .video-meta { font-size: 12px; color: var(--sub); }
+  .marketing-feature { margin-bottom: 1.75rem; }
+
+  /* FROM EUANSPOV (writing) */
+  .writing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .writing-card {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .writing-card:hover { transform: translateY(-4px); box-shadow: 6px 6px 0 var(--ink); }
+  .writing-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .writing-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .writing-excerpt {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .writing-link {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 2px solid var(--red);
+    align-self: flex-start;
+    padding-bottom: 1px;
+  }
+
+  /* VISUAL WORK (design) */
+  .design-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+  .design-card {
+    aspect-ratio: 3/4;
+    background: #e5e1d5;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+  }
+  .design-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .design-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(19,17,16,0) 40%, rgba(227,36,26,0.85) 100%);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .design-card:hover .design-overlay { opacity: 1; }
+  .design-overlay-title { font-size: 0.95rem; font-weight: 800; color: var(--white); margin-bottom: 2px; }
+  .design-overlay-tag { font-size: 11px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.03em; }
+
+  /* ============ CLOSING BAND ============ */
+  .closing-band {
+    background: var(--ink);
+    color: var(--white);
+    padding: 4rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin-bottom: 1.4rem;
+    position: relative;
+  }
+  .closing-band .btn-primary { position: relative; }
+  .closing-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    position: relative;
+  }
+  .closing-social a {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .closing-social a svg { width: 16px; height: 16px; stroke: var(--white); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .closing-social a.filled svg { fill: var(--white); stroke: none; }
+  .closing-social a:hover { background: var(--red); border-color: var(--red); }
+
+  footer {
+    padding: 1.4rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--sub);
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .carousel-wrap { order: -1; }
+    .design-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.4rem; }
+    .nav-links { display: none; }
+    .hero { padding: 2.5rem 1.4rem 2rem; }
+    .section { padding: 3rem 1.4rem; }
+    .design-grid { grid-template-columns: repeat(2, 1fr); }
+    .closing-band { padding: 3rem 1.4rem; }
+    footer { padding: 1.2rem 1.4rem; flex-direction: column; gap: 4px; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- ============ NAV ============ -->
-  <nav>
-    <span class="nav-name">Euan Springfield</span>
-    <ul class="nav-links">
-      <li><a href="#writing">Writing</a></li>
-      <li><a href="#video">Video</a></li>
-      <li><a href="#design">Design</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="drift-layer">
+    <div class="drift-shape drift-1"></div>
+    <div class="drift-shape drift-2"></div>
+    <div class="drift-shape drift-3"></div>
+  </div>
 
-  <!-- ============ HERO ============ -->
-  <header class="hero">
-    <div class="hero-inner">
+  <div class="page">
 
-      <div class="hero-main">
-        <p class="hero-eyebrow">Writer · Designer · Editor</p>
-        <h1>Words that stick,<br>visuals that <em>inspire</em>.</h1>
+    <!-- ============ NAV ============ -->
+    <nav>
+      <div class="nav-brand">
+        <span class="nav-badge">ES</span>
+        <span class="nav-name">Euan Springfield<span class="nav-tagline">Multimedia Content Producer</span>
+          <span class="nav-tags">
+            <span class="nav-tag-line">Football</span>
+            <span class="nav-tag-line">Culture</span>
+            <span class="nav-tag-line">Media</span>
+          </span>
+        </span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#analysis">Analysis</a></li>
+        <li><a href="#notebook">Writing</a></li>
+        <li><a href="#marketing">Marketing</a></li>
+      </ul>
+      <div class="nav-social">
+        <a href="mailto:springfielde7@gmail.com" title="Email" aria-label="Email">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/euan-springfield-67352a272/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://substack.com/@euanspov" target="_blank" rel="noopener" title="Substack" aria-label="Substack">
+          <svg viewBox="0 0 24 24"><path d="M3 5h18M3 9h18M3 19l9-5 9 5V13H3z"/></svg>
+        </a>
+        <a class="filled" href="https://medium.com/@euanspov" target="_blank" rel="noopener" title="Medium" aria-label="Medium">
+          <svg viewBox="0 0 24 24"><path d="M22,6.41668h-.791a.89762.89762,0,0,0-.709.69479v9.83021a.83938.83938,0,0,0,.709.64164H22V19.9167H14.83334V17.58332h1.50008V7.25h-.07353L12.75706,19.9167H10.04512L6.58751,7.25H6.5V17.58332H8V19.9167H2V17.58332h.76835A.841.841,0,0,0,3.5,16.94168V7.11139a.89588.89588,0,0,0-.73166-.69479H2V4.0833H9.50266L11.96593,13.25h.068L14.51976,4.0833H22V6.41668"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
+        </a>
+        <a class="filled" href="https://www.tiktok.com/@1commongoal" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+      <a class="nav-cta" href="mailto:springfielde7@gmail.com">Get in touch</a>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div>
+        <span class="hero-eyebrow">Multimedia Content Producer</span>
+        <h1>Stories, Told <span class="accent">Differently</span></h1>
         <p class="hero-bio">
-          I'm Euan — a writer, designer and editor based in Cape Town.
-          My work has appeared in Supernova Kids magazine, PEP and other publications.
+          Mostly football, sometimes more. I make video essays, write long-form
+          and design visuals that get inside the game — based in Cape Town,
+          published on YouTube, Substack, Medium and beyond.
         </p>
-        <button class="hero-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          Get in touch →
-        </button>
+        <div class="hero-actions">
+          <a class="btn-primary" href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener">Watch the latest</a>
+          <a class="btn-secondary" href="#notebook">Read the latest</a>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-icons">
+            <span class="hero-stat-icon-yt">
+              <svg viewBox="0 0 24 24"><polygon points="9,6.5 9,17.5 18,12" fill="#ffffff"/></svg>
+            </span>
+            <span class="hero-stat-icon-tt">
+              <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="#131110"/></svg>
+            </span>
+          </div>
+          <span>
+            <span class="hero-stat-num">400K+</span>
+            <span class="hero-stat-label">Views across YouTube &amp; TikTok<br><span class="hero-stat-handle">@1CommonGoal</span></span>
+          </span>
+        </div>
       </div>
 
-      <!-- ===== FEATURED WORK CAROUSEL ===== -->
-      <div class="hero-showcase" id="heroShowcase" aria-roledescription="carousel" aria-label="Featured work">
-        <span class="showcase-label">Featured</span>
+      <div class="carousel-wrap" id="carousel" role="region" aria-label="Rotating writing pieces">
+        <span class="carousel-kicker">From The Common Goal</span>
+        <div class="carousel-stage">
 
-        <div class="showcase-viewport">
-          <div class="showcase-track">
+          <a class="carousel-slide active bg-sa-football" data-index="0" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">The Problem With South African Football</p>
+            <p class="carousel-excerpt">Why grassroots talent fails to materialise at professional level.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
 
-           <a class="showcase-slide is-active"
-   href="https://open.substack.com/pub/euanspov/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post&utm_medium=web"
-   target="_blank"
-   rel="noopener">
-  <span class="showcase-tag">Latest Article · Substack</span>
-  <p class="showcase-title">The Transfer Market Is Broken</p>
-  <p class="showcase-excerpt">
-    An analysis of how modern football's transfer market has become distorted and what that means for clubs, players, and the game.
-  </p>
-  <span class="showcase-cta">Read the article →</span>
-</a>
+          <a class="carousel-slide bg-sa-pride" data-index="1" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">NO DNA JUST RSA</p>
+            <p class="carousel-excerpt">How South Africa dominates global sports.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
 
-            <a class="showcase-slide" href="https://youtu.be/vn-4C3eZmvw?si=Bd5eHjgQTg4TSoWK" target="_blank" rel="noopener">
-              <div class="showcase-thumb">
-                <img src="https://img.youtube.com/vi/vn-4C3eZmvw/maxresdefault.jpg" alt="Why South Africa Wins More Than It Should video thumbnail" loading="lazy" />
-              </div>
-              <span class="showcase-tag">YouTube · 1CommonGoal</span>
-              <p class="showcase-title">Why South Africa Wins More Than It Should</p>
-              <div class="showcase-stats">
-                <span><svg class="stat-icon" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>8.2K views</span>
-                <span><svg class="stat-icon" viewBox="0 0 24 24"><path d="M7 10v12"/><path d="M15 5.88 14 10h6.31a2 2 0 0 1 1.98 2.3l-1.6 8A2 2 0 0 1 18.7 22H7"/></svg>412 likes</span>
-              </div>
-            </a>
+          <a class="carousel-slide bg-global" data-index="2" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
+            <span class="carousel-tag">Medium · Long-form</span>
+            <p class="carousel-title">The World Has Changed</p>
+            <p class="carousel-excerpt">The major political and global shifts we're living through.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
 
-            <a class="showcase-slide" href="https://www.youtube.com/watch?v=zduy6L9UKsg" target="_blank" rel="noopener">
-              <div class="showcase-thumb">
-                <img src="https://img.youtube.com/vi/zduy6L9UKsg/maxresdefault.jpg" alt="Arsenal Are Control Freaks video thumbnail" loading="lazy" />
-              </div>
-              <span class="showcase-tag">YouTube · 1CommonGoal</span>
-              <p class="showcase-title">Arsenal Are Control Freaks</p>
-              <div class="showcase-stats">
-                <span><svg class="stat-icon" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>5.6K views</span>
-                <span><svg class="stat-icon" viewBox="0 0 24 24"><path d="M7 10v12"/><path d="M15 5.88 14 10h6.31a2 2 0 0 1 1.98 2.3l-1.6 8A2 2 0 0 1 18.7 22H7"/></svg>298 likes</span>
-              </div>
-            </a>
+          <a class="carousel-slide bg-space" data-index="3" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
+            <span class="carousel-tag">Children's Book · Contributing Writer</span>
+            <p class="carousel-title">Tuning into Our Universe</p>
+            <p class="carousel-excerpt">A science publication for the South African Radio Astronomy Observatory.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
 
-            <a class="showcase-slide" href="https://youtu.be/0e98EctMJjI" target="_blank" rel="noopener">
-              <div class="showcase-thumb">
-                <img src="https://img.youtube.com/vi/0e98EctMJjI/maxresdefault.jpg" alt="Freelance Marketing Work video thumbnail" loading="lazy" />
-              </div>
-              <span class="showcase-tag">YouTube · 1CommonGoal</span>
-              <p class="showcase-title">Freelance Marketing Work</p>
-              <div class="showcase-stats">
-                <span><svg class="stat-icon" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>1.9K views</span>
-                <span><svg class="stat-icon" viewBox="0 0 24 24"><path d="M7 10v12"/><path d="M15 5.88 14 10h6.31a2 2 0 0 1 1.98 2.3l-1.6 8A2 2 0 0 1 18.7 22H7"/></svg>84 likes</span>
-              </div>
-            </a>
+          <a class="carousel-slide bg-transfer" data-index="4" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">The Transfer Market Is Broken</p>
+            <p class="carousel-excerpt">A look at why football's transfer system no longer works the way it should.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
 
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </header>
+
+    <!-- ============ TICKER ============ -->
+    <div class="ticker">
+      <div class="ticker-track">
+        <div class="ticker-set">
+          <span class="ticker-word">FOOTBALL</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">TACTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">CULTURE</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">ANALYTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">DESIGN</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">SCRIPTING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">MARKETING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">EDITING</span><span class="ticker-dot">•</span>
+        </div>
+        <div class="ticker-set" aria-hidden="true">
+          <span class="ticker-word">FOOTBALL</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">TACTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">CULTURE</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">ANALYTICS</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">DESIGN</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">SCRIPTING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">MARKETING</span><span class="ticker-dot">•</span>
+          <span class="ticker-word">EDITING</span><span class="ticker-dot">•</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ VIDEO ANALYSIS ============ -->
+    <section class="section" id="analysis">
+      <div class="section-header">
+        <h2 class="section-title">Video Analysis</h2>
+        <p class="section-sub">Video essays on tactics, teams and the stories behind the scoreline.</p>
+      </div>
+      <div class="video-grid">
+
+        <a class="video-card" href="https://youtu.be/vn-4C3eZmvw?si=Bd5eHjgQTg4TSoWK" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/vn-4C3eZmvw/maxresdefault.jpg" alt="Why South Africa Wins More Than It Should video thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">9</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Why South Africa Wins More Than It Should</p>
+          <p class="video-meta">YouTube · 7 min</p>
+        </a>
+
+        <a class="video-card" href="https://www.youtube.com/watch?v=zduy6L9UKsg" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/zduy6L9UKsg/maxresdefault.jpg" alt="Arsenal Are Control Freaks video thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">10</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Arsenal Are Control Freaks</p>
+          <p class="video-meta">YouTube · 6 min</p>
+        </a>
+
+        <a class="video-card" href="https://youtu.be/Kk2K2CpuHuc" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/Kk2K2CpuHuc/maxresdefault.jpg" alt="Why Transfer Fees Make No Sense Anymore video thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/Kk2K2CpuHuc/hqdefault.jpg';" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">8</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Why Transfer Fees Make No Sense Anymore</p>
+          <p class="video-meta">YouTube</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ FROM EUANSPOV (writing) ============ -->
+    <section class="section" id="notebook">
+      <div class="section-header">
+        <h2 class="section-title">From The Common Goal</h2>
+        <p class="section-sub">Essays and features on football, culture and beyond.</p>
+      </div>
+      <div class="writing-grid">
+
+        <a class="writing-card" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
+          <span class="writing-tag">Children's Book · Contributing Writer</span>
+          <p class="writing-title">Tuning into Our Universe</p>
+          <p class="writing-excerpt">A children's science publication produced for the South African Radio Astronomy Observatory (SARAO). My contribution is credited in the publication.</p>
+          <span class="writing-link">View publication</span>
+        </a>
+
+        <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">The Problem With South African Football</p>
+          <p class="writing-excerpt">Why does grassroots talent fail to materialise at professional level?</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">NO DNA JUST RSA</p>
+          <p class="writing-excerpt">A deep dive into how South Africa dominates global sports.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
+          <span class="writing-tag">Medium · Long-form</span>
+          <p class="writing-title">The World Has Changed</p>
+          <p class="writing-excerpt">Addressing the major political and global shifts we're experiencing.</p>
+          <span class="writing-link">Read on Medium</span>
+        </a>
+
+        <a class="writing-card" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">The Transfer Market Is Broken</p>
+          <p class="writing-excerpt">A look at why football's transfer system no longer works the way it should.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ MARKETING & DESIGN ============ -->
+    <section class="section" id="marketing">
+      <div class="section-header">
+        <h2 class="section-title">Marketing &amp; Design</h2>
+        <p class="section-sub">Freelance video, design and brand work for clients.</p>
+      </div>
+      <div class="video-grid marketing-feature">
+
+        <a class="video-card" href="https://youtu.be/0e98EctMJjI" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/0e98EctMJjI/maxresdefault.jpg" alt="Freelance Marketing Work video thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">7</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">Freelance Marketing Work</p>
+          <p class="video-meta">YouTube · 2 min</p>
+        </a>
+
+        <a class="video-card" href="https://youtu.be/0QiHGO1Q7Ow" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/0QiHGO1Q7Ow/maxresdefault.jpg" alt="Marketing and design piece thumbnail" />
+            <div class="video-play-overlay">
+              <span class="shirt-number">11</span>
+              <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
+            </div>
+          </div>
+          <p class="video-title">New Marketing Project</p>
+          <p class="video-meta">YouTube</p>
+        </a>
+
+      </div>
+      <div class="design-grid">
+
+        <div class="design-card">
+          <img src="images/Poster3.png" alt="SEC Tutor Academy poster design" />
+          <div class="design-overlay">
+            <p class="design-overlay-title">Freelance Marketing: SEC Academy</p>
+            <p class="design-overlay-tag">Poster Design</p>
           </div>
         </div>
 
-        <div class="showcase-controls">
-          <button type="button" class="showcase-arrow" id="showcasePrev" aria-label="Previous slide">‹</button>
-          <div class="showcase-dots" id="showcaseDots" role="tablist" aria-label="Choose featured slide"></div>
-          <button type="button" class="showcase-arrow" id="showcaseNext" aria-label="Next slide">›</button>
+        <div class="design-card">
+          <img src="images/Poster4.png" alt="SEC Tutor Academy poster design" />
+          <div class="design-overlay">
+            <p class="design-overlay-title">Freelance Marketing: SEC Academy</p>
+            <p class="design-overlay-tag">Poster Design</p>
+          </div>
         </div>
-      </div>
 
-    </div>
-  </header>
-
-  <!-- ============ WRITING ============ -->
-  <section class="section" id="writing">
-    <div class="section-header">
-      <span class="section-label">01</span>
-      <h2 class="section-title">Writing</h2>
-    </div>
-    <div class="writing-grid">
-
-  <a class="writing-card" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
-    <span class="writing-tag">Children's Comic Book · Writer</span>
-
-    <span class="writing-pill">Children's Comic Book Writer</span>
-
-    <p class="writing-title">Tuning into Our Universe</p>
-    <p class="writing-excerpt">
-        A children's science publication produced for the South African Radio Astronomy Observatory (SARAO). My contribution is credited in the publication.
-    </p>
-    <span class="writing-link">View publication →</span>
-</a>
-
-  <a class="writing-card"
-   href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web"
-   target="_blank"
-   rel="noopener">
-
-    <span class="writing-tag">Substack · Essay</span>
-    <span class="writing-pill">Sports Journalism</span>
-
-    <p class="writing-title">The Problem With South African Football</p>
-    <p class="writing-excerpt">
-        Why does grassroots talent fail to materialise at professional level?
-    </p>
-    <span class="writing-link">Read on Substack →</span>
-</a>
-
-     <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
-    <span class="writing-tag">Substack · Essay</span>
-    <span class="writing-pill">Sports Journalism</span>
-
-    <p class="writing-title">NO DNA JUST RSA</p>
-    <p class="writing-excerpt">
-        A deep dive into how South Africa dominates global sports.
-    </p>
-    <span class="writing-link">Read on Substack →</span>
-</a>
-<a class="writing-card" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
-    <span class="writing-tag">Medium · Long-form</span>
-    <span class="writing-pill">Political Commentary</span>
-
-    <p class="writing-title">The World Has Changed</p>
-    <p class="writing-excerpt">
-        Addressing the major political and global shifts we're experiencing.
-    </p>
-    <span class="writing-link">Read on Medium →</span>
-</a>
-
-</div>
-</section>
-
-  <!-- ============ VIDEO ============ -->
-  <section class="section" id="video">
-    <div class="section-header">
-      <span class="section-label">02</span>
-      <h2 class="section-title">Video</h2>
-    </div>
-    <div class="video-grid">
-
-      <a class="video-card" href="https://youtu.be/vn-4C3eZmvw?si=Bd5eHjgQTg4TSoWK" target="_blank" rel="noopener">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/vn-4C3eZmvw/maxresdefault.jpg" alt="Why South Africa Wins More Than It Should video thumbnail" />
+        <div class="design-card">
+          <img src="images/Poster5.png" alt="SEC Tutor Academy poster design" />
+          <div class="design-overlay">
+            <p class="design-overlay-title">Freelance Marketing: SEC Academy</p>
+            <p class="design-overlay-tag">Video Edit</p>
+          </div>
         </div>
-        <p class="video-title">Why South Africa Wins More Than It Should</p>
-        <p class="video-meta">YouTube · 7 min</p>
-      </a>
 
-      <a class="video-card" href="https://www.youtube.com/watch?v=zduy6L9UKsg" target="_blank" rel="noopener">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/zduy6L9UKsg/maxresdefault.jpg" alt="Arsenal Are Control Freaks video thumbnail" />
-        </div>
-        <p class="video-title">Arsenal Are Control Freaks</p>
-        <p class="video-meta">YouTube · 6 min</p>
-      </a>
-
-      <a class="video-card" href="https://youtu.be/0e98EctMJjI" target="_blank" rel="noopener">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/0e98EctMJjI/maxresdefault.jpg" alt="Freelance Marketing Work video thumbnail" />
-        </div>
-        <p class="video-title">Freelance Marketing Work</p>
-        <p class="video-meta">YouTube · 2 min</p>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ============ DESIGN ============ -->
- <!-- ============ DESIGN ============ -->
-<section class="section" id="design">
-  <div class="section-header">
-    <span class="section-label">03</span>
-    <h2 class="section-title">Design</h2>
-  </div>
-  <div class="design-grid">
-
-    <div class="design-card">
-      <img src="images/Poster2.png" alt="Freelance poster design" />
-      <div class="design-overlay">
-        <p class="design-overlay-title">Freelance Work</p>
-        <p class="design-overlay-tag">Graphic Design</p>
       </div>
-    </div>
+    </section>
 
-    <div class="design-card">
-      <img src="images/Poster3.png" alt="SEC Tutor Academy poster design" />
-      <div class="design-overlay">
-        <p class="design-overlay-title">Freelance Work</p>
-        <p class="design-overlay-tag">Graphic Design</p>
-      </div>
-    </div>
-
-    <div class="design-card">
-      <img src="images/Poster4.png" alt="SEC Tutor Academy poster design" />
-      <div class="design-overlay">
-        <p class="design-overlay-title">Freelance Work</p>
-        <p class="design-overlay-tag">Graphic Design</p>
-      </div>
-    </div>
-
-    <div class="design-card">
-      <img src="images/Poster5.png" alt="Freelance video edit poster" />
-      <div class="design-overlay">
-        <p class="design-overlay-title">Freelance Work</p>
-        <p class="design-overlay-tag">Video Edit</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-  <!-- ============ CONTACT ============ -->
-  <section class="section" id="contact">
-    <div class="contact-row">
-      <p class="contact-text">Let's work together — reach out and I'll get back within 48 hours.</p>
-      <div class="contact-links">
-        <a class="contact-link" href="mailto:springfielde7@gmail.com">
-          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          springfielde7@gmail.com
-        </a>
-        <a class="contact-link" href="https://www.linkedin.com/in/euan-springfield-67352a272/" target="_blank" rel="noopener">
+    <!-- ============ CLOSING BAND ============ -->
+    <section class="closing-band" id="contact">
+      <h2>Got a story worth telling?<br>Let's talk.</h2>
+      <a class="btn-primary" href="mailto:springfielde7@gmail.com">springfielde7@gmail.com</a>
+      <div class="closing-social">
+        <a href="https://www.linkedin.com/in/euan-springfield-67352a272/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn
         </a>
-        <a class="contact-link" href="https://substack.com/@euanspov" target="_blank" rel="noopener">
+        <a href="https://substack.com/@euanspov" target="_blank" rel="noopener" title="Substack" aria-label="Substack">
           <svg viewBox="0 0 24 24"><path d="M3 5h18M3 9h18M3 19l9-5 9 5V13H3z"/></svg>
-          Substack
         </a>
-        <a class="contact-link" href="https://medium.com/@euanspov" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" fill="none"/><circle cx="8.5" cy="12" r="3.5"/><ellipse cx="16" cy="12" rx="2" ry="3.5"/><ellipse cx="21" cy="12" rx="1" ry="3.5"/></svg>
-          Medium
+        <a class="filled" href="https://medium.com/@euanspov" target="_blank" rel="noopener" title="Medium" aria-label="Medium">
+          <svg viewBox="0 0 24 24"><path d="M22,6.41668h-.791a.89762.89762,0,0,0-.709.69479v9.83021a.83938.83938,0,0,0,.709.64164H22V19.9167H14.83334V17.58332h1.50008V7.25h-.07353L12.75706,19.9167H10.04512L6.58751,7.25H6.5V17.58332H8V19.9167H2V17.58332h.76835A.841.841,0,0,0,3.5,16.94168V7.11139a.89588.89588,0,0,0-.73166-.69479H2V4.0833H9.50266L11.96593,13.25h.068L14.51976,4.0833H22V6.41668"/></svg>
         </a>
-        <a class="contact-link" href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener">
+        <a href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
           <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98"/></svg>
-          YouTube
+        </a>
+        <a class="filled" href="https://www.tiktok.com/@1commongoal" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <span>© 2026 Euan Springfield</span>
-    <span>Cape Town, South Africa</span>
-  </footer>
+    <footer>
+      <span>© 2026 Euan Springfield</span>
+      <span>Cape Town, South Africa</span>
+    </footer>
+
+  </div>
 
   <script>
     (function () {
-      var showcase = document.getElementById('heroShowcase');
-      if (!showcase) return;
-
-      var slides = Array.prototype.slice.call(showcase.querySelectorAll('.showcase-slide'));
-      var dotsWrap = document.getElementById('showcaseDots');
-      var prevBtn = document.getElementById('showcasePrev');
-      var nextBtn = document.getElementById('showcaseNext');
+      var slides = document.querySelectorAll('.carousel-slide');
+      var dotsWrap = document.getElementById('carouselDots');
       var current = 0;
-      var timer = null;
-      var AUTOPLAY_MS = 6000;
+      var timer;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      slides.forEach(function (slide, i) {
+      slides.forEach(function (_, i) {
         var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'showcase-dot' + (i === 0 ? ' is-active' : '');
-        dot.setAttribute('role', 'tab');
-        dot.setAttribute('aria-label', 'Show slide ' + (i + 1) + ' of ' + slides.length);
-        dot.addEventListener('click', function () {
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Show writing piece ' + (i + 1));
+        dot.addEventListener('click', function (e) {
+          e.preventDefault();
           goTo(i);
           resetTimer();
         });
         dotsWrap.appendChild(dot);
       });
-      var dots = Array.prototype.slice.call(dotsWrap.children);
+      var dots = dotsWrap.querySelectorAll('.carousel-dot');
 
-      function goTo(index) {
-        slides[current].classList.remove('is-active');
-        dots[current].classList.remove('is-active');
-        current = (index + slides.length) % slides.length;
-        slides[current].classList.add('is-active');
-        dots[current].classList.add('is-active');
+      function goTo(i) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = i;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
       }
 
-      function next() { goTo(current + 1); }
-      function prev() { goTo(current - 1); }
+      function next() { goTo((current + 1) % slides.length); }
 
-      function startTimer() {
-        if (reduceMotion) return;
-        stopTimer();
-        timer = setInterval(next, AUTOPLAY_MS);
+      function resetTimer() {
+        clearInterval(timer);
+        if (!reduceMotion) timer = setInterval(next, 4200);
       }
-      function stopTimer() {
-        if (timer) { clearInterval(timer); timer = null; }
-      }
-      function resetTimer() { stopTimer(); startTimer(); }
 
-      nextBtn.addEventListener('click', function () { next(); resetTimer(); });
-      prevBtn.addEventListener('click', function () { prev(); resetTimer(); });
+      resetTimer();
 
-      // Pause on hover/focus so visitors can read without the slide changing underneath them
-      showcase.addEventListener('mouseenter', stopTimer);
-      showcase.addEventListener('mouseleave', startTimer);
-      showcase.addEventListener('focusin', stopTimer);
-      showcase.addEventListener('focusout', startTimer);
-
-      startTimer();
+      var carousel = document.getElementById('carousel');
+      carousel.addEventListener('mouseenter', function () { clearInterval(timer); });
+      carousel.addEventListener('mouseleave', resetTimer);
     })();
   </script>
 
