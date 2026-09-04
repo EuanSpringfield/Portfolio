@@ -353,27 +353,24 @@
   }
   .carousel-slide > * { position: relative; z-index: 1; }
 
-  /* Each .bg-* class below is a generated pattern standing in for a real thumbnail.
-     To use an actual image instead, add a background-image line, e.g.:
-     background-image: url('your-thumbnail.jpg'), <the existing gradient>;
-     (keep the gradient after the comma — it becomes the dark-overlay-friendly fallback) */
+  /* Real article thumbnails, layered under the dark overlay above for text legibility */
   .bg-sa-football {
     background-color: #17100f;
-    background-image:
-      radial-gradient(circle at 78% 18%, rgba(227,36,26,0.55), transparent 55%),
-      repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 2px, transparent 2px, transparent 34px);
+    background-image: url('images/problemwithsafootball.jpeg');
+    background-size: cover;
+    background-position: center;
   }
   .bg-sa-pride {
     background-color: #101410;
-    background-image:
-      radial-gradient(circle at 18% 82%, rgba(30,168,90,0.5), transparent 55%),
-      radial-gradient(circle at 82% 18%, rgba(255,183,3,0.4), transparent 55%);
+    background-image: url('images/nodnajustrsa.jpeg');
+    background-size: cover;
+    background-position: center;
   }
   .bg-global {
     background-color: #0b1120;
-    background-image:
-      radial-gradient(circle at 50% 45%, rgba(30,79,217,0.45), transparent 60%),
-      repeating-radial-gradient(circle at 50% 45%, transparent 0 38px, rgba(255,255,255,0.05) 38px 39px);
+    background-image: url('images/worldhaschanged.jpeg');
+    background-size: cover;
+    background-position: center;
   }
   .bg-space {
     background-color: #0a0a16;
@@ -388,9 +385,27 @@
   }
   .bg-transfer {
     background-color: #14100a;
-    background-image:
-      radial-gradient(circle at 25% 20%, rgba(230,178,45,0.5), transparent 55%),
-      repeating-linear-gradient(70deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 30px);
+    background-image: url('images/transfermarketisbroken.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+  .bg-cost-control {
+    background-color: #14100a;
+    background-image: url('images/costofcontrol.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+  .bg-end-classy {
+    background-color: #14100a;
+    background-image: url('images/endofclassyarsenal.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+  .bg-lost-art {
+    background-color: #14100a;
+    background-image: url('images/lostartofgivingafuck.jpeg');
+    background-size: cover;
+    background-position: center;
   }
 
   .carousel-tag { font-size: 11px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; display: block; }
@@ -779,6 +794,27 @@
             <span class="carousel-read">View piece</span>
           </a>
 
+          <a class="carousel-slide bg-cost-control" data-index="5" href="https://euanspov.substack.com/p/arsenal-arteta-and-the-cost-of-control?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">The Cost of Control in a Title Race</p>
+            <p class="carousel-excerpt">What Arteta's grip on Arsenal means as the title race intensifies.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+          <a class="carousel-slide bg-end-classy" data-index="6" href="https://euanspov.substack.com/p/the-end-of-classy-arsenal?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Football Essay</span>
+            <p class="carousel-title">The End of Classy Arsenal?</p>
+            <p class="carousel-excerpt">Questioning whether Arsenal's identity is shifting under pressure.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
+          <a class="carousel-slide bg-lost-art" data-index="7" href="https://euanspov.substack.com/p/the-lost-art-of-giving-a-fck?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+            <span class="carousel-tag">Substack · Essay</span>
+            <p class="carousel-title">The Lost Art of Giving a F*ck</p>
+            <p class="carousel-excerpt">On apathy, effort, and what it means to actually care these days.</p>
+            <span class="carousel-read">View piece</span>
+          </a>
+
         </div>
         <div class="carousel-dots" id="carouselDots"></div>
       </div>
@@ -897,6 +933,27 @@
           <span class="writing-tag">Substack · Football Essay</span>
           <p class="writing-title">The Transfer Market Is Broken</p>
           <p class="writing-excerpt">A look at why football's transfer system no longer works the way it should.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://euanspov.substack.com/p/arsenal-arteta-and-the-cost-of-control?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">The Cost of Control in a Title Race</p>
+          <p class="writing-excerpt">What Arteta's grip on Arsenal means as the title race intensifies.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://euanspov.substack.com/p/the-end-of-classy-arsenal?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Football Essay</span>
+          <p class="writing-title">The End of Classy Arsenal?</p>
+          <p class="writing-excerpt">Questioning whether Arsenal's identity is shifting under pressure.</p>
+          <span class="writing-link">Read on Substack</span>
+        </a>
+
+        <a class="writing-card" href="https://euanspov.substack.com/p/the-lost-art-of-giving-a-fck?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+          <span class="writing-tag">Substack · Essay</span>
+          <p class="writing-title">The Lost Art of Giving a F*ck</p>
+          <p class="writing-excerpt">On apathy, effort, and what it means to actually care these days.</p>
           <span class="writing-link">Read on Substack</span>
         </a>
 
