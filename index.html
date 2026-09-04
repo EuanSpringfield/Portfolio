@@ -680,11 +680,8 @@
     z-index: 0;
   }
   .writing-card.has-thumb > * { position: relative; z-index: 1; }
-  .writing-card.has-thumb .writing-title { color: var(--white); }
-  .writing-card.has-thumb .writing-excerpt { color: rgba(255,255,255,0.75); }
-  .writing-card.has-thumb .writing-link { color: var(--white); }
-  .writing-card.has-thumb .writing-tag {
-    color: var(--red);
+  .writing-card.has-thumb .writing-title {
+    color: var(--white);
     -webkit-text-stroke: 0.6px #000000;
     text-shadow:
       -1px -1px 0 #000000,
@@ -692,6 +689,11 @@
       -1px 1px 0 #000000,
       1px 1px 0 #000000;
     paint-order: stroke fill;
+  }
+  .writing-card.has-thumb .writing-excerpt { color: rgba(255,255,255,0.75); }
+  .writing-card.has-thumb .writing-link { color: var(--white); }
+  .writing-card.has-thumb .writing-tag {
+    color: var(--red);
   }
 
   /* VISUAL WORK (design) */
