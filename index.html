@@ -694,12 +694,13 @@
   .writing-card.has-thumb .writing-link { color: var(--white); }
   .writing-card.has-thumb .writing-tag {
     color: var(--red);
-    background: #ffffff;
-    padding: 1px 5px;
-    border-radius: 3px;
-    line-height: 1.4;
-    display: inline-block;
-    align-self: flex-start;
+    -webkit-text-stroke: 0.5px #ffffff;
+    text-shadow:
+      -1px -1px 0 #ffffff,
+      1px -1px 0 #ffffff,
+      -1px 1px 0 #ffffff,
+      1px 1px 0 #ffffff;
+    paint-order: stroke fill;
   }
 
   /* VISUAL WORK (design) */
