@@ -301,6 +301,12 @@
   }
   .hero-stat-handle { color: #ffd400; font-weight: 800; }
 
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
   /* ============ WRITING CAROUSEL (hero visual) ============ */
   .carousel-wrap {
     position: relative;
@@ -407,6 +413,12 @@
     background-size: cover;
     background-position: center;
   }
+  .bg-universe {
+    background-color: #0a0a16;
+    background-image: url('images/tuneintoouruniverse.jpeg.png');
+    background-size: cover;
+    background-position: center;
+  }
 
   .carousel-tag { font-size: 11px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; display: block; }
   .carousel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--white); line-height: 1.05; margin-bottom: 0.6rem; }
@@ -430,7 +442,7 @@
     right: 1.4rem;
     display: flex;
     gap: 0.5rem;
-    z-index: 2;
+    z-index: 4;
   }
   .carousel-dot {
     width: 22px; height: 4px;
@@ -442,6 +454,26 @@
     padding: 0;
   }
   .carousel-dot.active { background: var(--red); }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(19,17,16,0.55);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 4;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .carousel-arrow:hover { background: var(--red); border-color: var(--red); }
+  .carousel-arrow svg { width: 16px; height: 16px; stroke: #ffffff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .carousel-arrow-prev { left: 0.8rem; }
+  .carousel-arrow-next { right: 0.8rem; }
 
   /* ============ TICKER ============ */
   .ticker {
@@ -486,6 +518,7 @@
     max-width: 1320px;
     margin: 0 auto;
   }
+  #notebook { padding-top: 2rem; }
   .section-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.3rem; border-bottom: 2px solid var(--ink); padding-bottom: 1.2rem; }
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -586,6 +619,24 @@
     align-self: flex-start;
     padding-bottom: 1px;
   }
+  .writing-card.has-thumb {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 260px;
+    overflow: hidden;
+  }
+  .writing-card.has-thumb::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(19,17,16,0.1) 25%, rgba(19,17,16,0.92) 100%);
+    z-index: 0;
+  }
+  .writing-card.has-thumb > * { position: relative; z-index: 1; }
+  .writing-card.has-thumb .writing-title { color: var(--white); }
+  .writing-card.has-thumb .writing-excerpt { color: rgba(255,255,255,0.75); }
+  .writing-card.has-thumb .writing-link { color: var(--white); }
 
   /* VISUAL WORK (design) */
   .design-grid {
@@ -739,23 +790,10 @@
           <a class="btn-primary" href="https://www.youtube.com/@1CommonGoal" target="_blank" rel="noopener">Watch the latest</a>
           <a class="btn-secondary" href="#notebook">Read the latest</a>
         </div>
-        <div class="hero-stat">
-          <div class="hero-stat-icons">
-            <span class="hero-stat-icon-yt">
-              <svg viewBox="0 0 24 24"><polygon points="9,6.5 9,17.5 18,12" fill="#ffffff"/></svg>
-            </span>
-            <span class="hero-stat-icon-tt">
-              <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="#131110"/></svg>
-            </span>
-          </div>
-          <span>
-            <span class="hero-stat-num">400K+</span>
-            <span class="hero-stat-label">Views across YouTube &amp; TikTok<br><span class="hero-stat-handle">@1CommonGoal</span></span>
-          </span>
-        </div>
       </div>
 
-      <div class="carousel-wrap" id="carousel" role="region" aria-label="Rotating writing pieces">
+      <div class="hero-visual">
+        <div class="carousel-wrap" id="carousel" role="region" aria-label="Rotating writing pieces">
         <span class="carousel-kicker">From The Common Goal</span>
         <div class="carousel-stage">
 
@@ -780,7 +818,7 @@
             <span class="carousel-read">View piece</span>
           </a>
 
-          <a class="carousel-slide bg-space" data-index="3" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
+          <a class="carousel-slide bg-universe" data-index="3" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
             <span class="carousel-tag">Children's Book · Contributing Writer</span>
             <p class="carousel-title">Tuning into Our Universe</p>
             <p class="carousel-excerpt">A science publication for the South African Radio Astronomy Observatory.</p>
@@ -816,7 +854,29 @@
           </a>
 
         </div>
+        <button type="button" class="carousel-arrow carousel-arrow-prev" id="carouselPrev" aria-label="Previous piece">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="carousel-arrow carousel-arrow-next" id="carouselNext" aria-label="Next piece">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
         <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <div class="hero-stat">
+        <div class="hero-stat-icons">
+          <span class="hero-stat-icon-yt">
+            <svg viewBox="0 0 24 24"><polygon points="9,6.5 9,17.5 18,12" fill="#ffffff"/></svg>
+          </span>
+          <span class="hero-stat-icon-tt">
+            <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="#131110"/></svg>
+          </span>
+        </div>
+        <span>
+          <span class="hero-stat-num">400K+</span>
+          <span class="hero-stat-label">Views across YouTube &amp; TikTok<br><span class="hero-stat-handle">@1CommonGoal</span></span>
+        </span>
+      </div>
       </div>
     </header>
 
@@ -901,56 +961,56 @@
       </div>
       <div class="writing-grid">
 
-        <a class="writing-card" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/tuneintoouruniverse.jpeg.png')" href="https://www.sarao.ac.za/wp-content/uploads/2024/10/Tuning-into-Our-Universe-English-Digital.pdf" target="_blank" rel="noopener">
           <span class="writing-tag">Children's Book · Contributing Writer</span>
           <p class="writing-title">Tuning into Our Universe</p>
           <p class="writing-excerpt">A children's science publication produced for the South African Radio Astronomy Observatory (SARAO). My contribution is credited in the publication.</p>
           <span class="writing-link">View publication</span>
         </a>
 
-        <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/problemwithsafootball.jpeg')" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
           <span class="writing-tag">Substack · Football Essay</span>
           <p class="writing-title">The Problem With South African Football</p>
           <p class="writing-excerpt">Why does grassroots talent fail to materialise at professional level?</p>
           <span class="writing-link">Read on Substack</span>
         </a>
 
-        <a class="writing-card" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/nodnajustrsa.jpeg')" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
           <span class="writing-tag">Substack · Football Essay</span>
           <p class="writing-title">NO DNA JUST RSA</p>
           <p class="writing-excerpt">A deep dive into how South Africa dominates global sports.</p>
           <span class="writing-link">Read on Substack</span>
         </a>
 
-        <a class="writing-card" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/worldhaschanged.jpeg')" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
           <span class="writing-tag">Medium · Long-form</span>
           <p class="writing-title">The World Has Changed</p>
           <p class="writing-excerpt">Addressing the major political and global shifts we're experiencing.</p>
           <span class="writing-link">Read on Medium</span>
         </a>
 
-        <a class="writing-card" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/transfermarketisbroken.jpeg')" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
           <span class="writing-tag">Substack · Football Essay</span>
           <p class="writing-title">The Transfer Market Is Broken</p>
           <p class="writing-excerpt">A look at why football's transfer system no longer works the way it should.</p>
           <span class="writing-link">Read on Substack</span>
         </a>
 
-        <a class="writing-card" href="https://euanspov.substack.com/p/arsenal-arteta-and-the-cost-of-control?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/costofcontrol.jpeg')" href="https://euanspov.substack.com/p/arsenal-arteta-and-the-cost-of-control?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
           <span class="writing-tag">Substack · Football Essay</span>
           <p class="writing-title">The Cost of Control in a Title Race</p>
           <p class="writing-excerpt">What Arteta's grip on Arsenal means as the title race intensifies.</p>
           <span class="writing-link">Read on Substack</span>
         </a>
 
-        <a class="writing-card" href="https://euanspov.substack.com/p/the-end-of-classy-arsenal?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/endofclassyarsenal.jpeg')" href="https://euanspov.substack.com/p/the-end-of-classy-arsenal?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
           <span class="writing-tag">Substack · Football Essay</span>
           <p class="writing-title">The End of Classy Arsenal?</p>
           <p class="writing-excerpt">Questioning whether Arsenal's identity is shifting under pressure.</p>
           <span class="writing-link">Read on Substack</span>
         </a>
 
-        <a class="writing-card" href="https://euanspov.substack.com/p/the-lost-art-of-giving-a-fck?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
+        <a class="writing-card has-thumb" style="background-image:url('images/lostartofgivingafuck.jpeg')" href="https://euanspov.substack.com/p/the-lost-art-of-giving-a-fck?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
           <span class="writing-tag">Substack · Essay</span>
           <p class="writing-title">The Lost Art of Giving a F*ck</p>
           <p class="writing-excerpt">On apathy, effort, and what it means to actually care these days.</p>
@@ -976,7 +1036,7 @@
               <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
             </div>
           </div>
-          <p class="video-title">Freelance Marketing Work</p>
+          <p class="video-title">VIDEO ADVERT: SEC ACADEMY</p>
           <p class="video-meta">YouTube · 2 min</p>
         </a>
 
@@ -988,7 +1048,7 @@
               <span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span>
             </div>
           </div>
-          <p class="video-title">Freelance Marketing Work</p>
+          <p class="video-title">VIDEO AD:SEC ACADEMY</p>
           <p class="video-meta">YouTube</p>
         </a>
 
@@ -1015,7 +1075,7 @@
           <img src="images/Poster5.png" alt="SEC Tutor Academy poster design" />
           <div class="design-overlay">
             <p class="design-overlay-title">Freelance Marketing: SEC Academy</p>
-            <p class="design-overlay-tag">Video Edit</p>
+            <p class="design-overlay-tag">Poster Design</p>
           </div>
         </div>
 
@@ -1093,6 +1153,17 @@
       var carousel = document.getElementById('carousel');
       carousel.addEventListener('mouseenter', function () { clearInterval(timer); });
       carousel.addEventListener('mouseleave', resetTimer);
+
+      var prevBtn = document.getElementById('carouselPrev');
+      var nextBtn = document.getElementById('carouselNext');
+      prevBtn.addEventListener('click', function () {
+        goTo((current - 1 + slides.length) % slides.length);
+        resetTimer();
+      });
+      nextBtn.addEventListener('click', function () {
+        next();
+        resetTimer();
+      });
     })();
   </script>
 
