@@ -6,7 +6,7 @@
 <title>Euan Springfield — Common Goal Media</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     --paper: #f2eee3;
@@ -35,6 +35,7 @@
 
   .serif { font-family: 'Fraunces', serif; }
   .mono { font-family: 'IBM Plex Mono', monospace; }
+  .hl-yellow { color: #e0b73c; }
   .accent-ital { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--rust); }
 
   /* faint paper grain, applied once to the whole page */
@@ -170,11 +171,12 @@
     margin-bottom: 1.2rem;
   }
   .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
     font-optical-sizing: auto;
-    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
-    line-height: 1.05;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    letter-spacing: -0.03em;
+    line-height: 1;
     color: var(--paper);
     margin-bottom: 1.4rem;
   }
@@ -321,6 +323,7 @@
     padding-bottom: 1.1rem;
     border-bottom: 1px solid var(--line-strong);
   }
+  .title-more { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 0.5em; letter-spacing: 0.08em; color: var(--stone); margin-left: 0.4rem; }
   .section-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 2rem; }
   .section-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--stone); }
 
@@ -377,8 +380,8 @@
   .index-row:hover .index-thumb img { filter: grayscale(0); }
   .index-body { min-width: 0; }
   .index-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--rust); display: block; margin-bottom: 0.3rem; }
-  .index-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.2rem; margin-bottom: 0.25rem; }
-  .index-excerpt { font-size: 13.5px; color: var(--stone); max-width: 520px; }
+  .index-title { display: block; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.2rem; margin-bottom: 0.25rem; }
+  .index-excerpt { display: block; font-size: 13.5px; color: var(--stone); max-width: 520px; }
   .index-link { font-size: 13px; white-space: nowrap; border-bottom: 1px solid var(--rust); padding-bottom: 2px; }
 
   /* ---- Marketing & Design ---- */
@@ -478,15 +481,10 @@
       <span class="nav-name">Euan Springfield</span>
       <span class="nav-tagline">Multimedia Content Producer</span>
     </div>
-    <div class="nav-tags">
-      <span>Football</span>
-      <span>Culture</span>
-      <span>Media</span>
-    </div>
     <ul class="nav-links">
-      <li><a href="#analysis">Analysis</a></li>
+      <li><a href="#analysis">Videos</a></li>
       <li><a href="#notebook">Writing</a></li>
-      <li><a href="#marketing">Marketing</a></li>
+      <li><a href="#marketing">Design</a></li>
     </ul>
     <div class="nav-social">
       <a href="mailto:springfielde7@gmail.com" title="Email" aria-label="Email">
@@ -514,7 +512,8 @@
   <!-- ============ HERO ============ -->
   <header class="hero" id="hero">
     <div class="hero-bg" id="heroBg">
-      <div class="hero-bg-slide active" style="background-image:url('images/problemwithsafootball.jpeg')"></div>
+      <div class="hero-bg-slide active" style="background-image:url('images/globalpipeline.jpeg')"></div>
+      <div class="hero-bg-slide" style="background-image:url('images/problemwithsafootball.jpeg')"></div>
       <div class="hero-bg-slide" style="background-image:url('images/nodnajustrsa.jpeg')"></div>
       <div class="hero-bg-slide" style="background-image:url('images/worldhaschanged.jpeg')"></div>
       <div class="hero-bg-slide" style="background-image:url('images/tuneintoouruniverse.jpeg.png')"></div>
@@ -525,11 +524,9 @@
     </div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow">Common Goal Media — Cape Town</p>
-      <h1>Stories, told <span class="accent-ital">differently</span></h1>
+      <h1>Sport. Culture. <span class="hl-yellow">Context.</span></h1>
       <p class="hero-bio">
-        Mostly football, sometimes more. I make video essays, write long-form
-        and design visuals that get inside the game — published on YouTube,
+        Providing the stories behind sport and culture — published on YouTube,
         Substack, Medium and beyond.
       </p>
       <div class="hero-actions">
@@ -554,11 +551,11 @@
 
     <!-- Numbered index strip — controls the background rotation -->
     <div class="hero-index" id="heroIndex">
-      <span class="hero-index-num"><span id="heroIndexPos">01</span><span class="of">/08</span></span>
+      <span class="hero-index-num"><span id="heroIndexPos">01</span><span class="of">/09</span></span>
       <span class="hero-index-rule"></span>
       <a class="hero-index-current" id="heroIndexLink" href="#" target="_blank" rel="noopener">
         <span class="hero-index-tag" id="heroIndexTag">Substack</span>
-        <span class="hero-index-title" id="heroIndexTitle">The Problem With South African Football</span>
+        <span class="hero-index-title" id="heroIndexTitle">South African Football's Global Pipeline Is Taking Shape</span>
       </a>
       <div class="hero-index-arrows">
         <button type="button" class="hero-index-arrow" id="heroPrev" aria-label="Previous piece">
@@ -600,8 +597,7 @@
   <!-- ============ VIDEO ANALYSIS ============ -->
   <section class="section" id="analysis">
     <div class="section-header">
-      <h2 class="section-title">Video Analysis</h2>
-      <span class="section-meta">3 essays — YouTube</span>
+      <h2 class="section-title">Video Content</h2>
     </div>
     <div class="video-grid">
 
@@ -638,8 +634,8 @@
   <!-- ============ FROM THE COMMON GOAL — editorial index ============ -->
   <section class="section" id="notebook">
     <div class="section-header">
-      <h2 class="section-title">From The Common Goal</h2>
-      <span class="section-meta">8 pieces — Substack, Medium &amp; print</span>
+      <h2 class="section-title">THE COMMON GOAL <span class="title-more">AND MORE</span></h2>
+      <span class="section-meta">9 pieces — Substack, Medium &amp; print</span>
     </div>
     <div class="index-list">
 
@@ -649,13 +645,24 @@
         <span class="index-body">
           <span class="index-tag">Literacy Project · Contributing Writer</span>
           <span class="index-title">Tuning into Our Universe</span>
-          <span class="index-excerpt">A children's science publication produced for the South African Radio Astronomy Observatory (SARAO).</span>
+          <span class="index-excerpt">A children's science publication produced for the South African Radio Astronomy Observatory (SARAO) and published by BK Publishing.</span>
         </span>
         <span class="index-link">View publication</span>
       </a>
 
-      <a class="index-row" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+      <a class="index-row" href="https://euanspov.substack.com/p/south-african-footballs-global-pipeline?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
         <span class="index-num">02</span>
+        <span class="index-thumb"><img src="images/globalpipeline.jpeg" alt="" /></span>
+        <span class="index-body">
+          <span class="index-tag">Substack · Football Essay</span>
+          <span class="index-title">South African Football's Global Pipeline Is Taking Shape</span>
+          <span class="index-excerpt">From the PSL to MLS and Europe, a new generation of South African footballers is attracting international attention. The data suggests it's no coincidence.</span>
+        </span>
+        <span class="index-link">Read on Substack</span>
+      </a>
+
+      <a class="index-row" href="https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
+        <span class="index-num">03</span>
         <span class="index-thumb"><img src="images/problemwithsafootball.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Substack · Football Essay</span>
@@ -666,7 +673,7 @@
       </a>
 
       <a class="index-row" href="https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" target="_blank" rel="noopener">
-        <span class="index-num">03</span>
+        <span class="index-num">04</span>
         <span class="index-thumb"><img src="images/nodnajustrsa.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Substack · Football Essay</span>
@@ -677,7 +684,7 @@
       </a>
 
       <a class="index-row" href="https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" target="_blank" rel="noopener">
-        <span class="index-num">04</span>
+        <span class="index-num">05</span>
         <span class="index-thumb"><img src="images/worldhaschanged.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Medium · Long-form</span>
@@ -688,7 +695,7 @@
       </a>
 
       <a class="index-row" href="https://euanspov.substack.com/p/the-transfer-market-is-broken?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
-        <span class="index-num">05</span>
+        <span class="index-num">06</span>
         <span class="index-thumb"><img src="images/transfermarketisbroken.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Substack · Football Essay</span>
@@ -699,7 +706,7 @@
       </a>
 
       <a class="index-row" href="https://euanspov.substack.com/p/arsenal-arteta-and-the-cost-of-control?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
-        <span class="index-num">06</span>
+        <span class="index-num">07</span>
         <span class="index-thumb"><img src="images/costofcontrol.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Substack · Football Essay</span>
@@ -710,7 +717,7 @@
       </a>
 
       <a class="index-row" href="https://euanspov.substack.com/p/the-end-of-classy-arsenal?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
-        <span class="index-num">07</span>
+        <span class="index-num">08</span>
         <span class="index-thumb"><img src="images/endofclassyarsenal.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Substack · Football Essay</span>
@@ -721,7 +728,7 @@
       </a>
 
       <a class="index-row" href="https://euanspov.substack.com/p/the-lost-art-of-giving-a-fck?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" target="_blank" rel="noopener">
-        <span class="index-num">08</span>
+        <span class="index-num">09</span>
         <span class="index-thumb"><img src="images/lostartofgivingafuck.jpeg" alt="" /></span>
         <span class="index-body">
           <span class="index-tag">Substack · Essay</span>
@@ -753,32 +760,23 @@
           <span class="kpi-label">impressions across Facebook, Instagram &amp; LinkedIn</span>
         </span>
       </div>
-      <div class="kpi-block">
-        <span class="kpi-icon kpi-icon-trend">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#a8402a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-        </span>
-        <span>
-          <span class="kpi-num">45%</span><br>
-          <span class="kpi-label">increase in client acquisition</span>
-        </span>
-      </div>
     </div>
 
     <div class="video-grid marketing-feature">
       <a class="video-card" href="https://youtu.be/0e98EctMJjI" target="_blank" rel="noopener">
         <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/0e98EctMJjI/maxresdefault.jpg" alt="Freelance Marketing Work video thumbnail" />
+          <img src="https://img.youtube.com/vi/0e98EctMJjI/maxresdefault.jpg" alt="Marketing material: SEC Tutor Academy video thumbnail" />
           <div class="video-play-overlay"><span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span></div>
         </div>
-        <p class="video-title">Freelance Marketing Work</p>
+        <p class="video-title">Marketing material: SEC Tutor Academy</p>
         <p class="video-meta">YouTube · 2 min</p>
       </a>
       <a class="video-card" href="https://youtu.be/0QiHGO1Q7Ow" target="_blank" rel="noopener">
         <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/0QiHGO1Q7Ow/maxresdefault.jpg" alt="Freelance Marketing Work video thumbnail" />
+          <img src="https://img.youtube.com/vi/0QiHGO1Q7Ow/maxresdefault.jpg" alt="Marketing material: SEC Tutor Academy video thumbnail" />
           <div class="video-play-overlay"><span class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg></span></div>
         </div>
-        <p class="video-title">Freelance Marketing Work</p>
+        <p class="video-title">Marketing material: SEC Tutor Academy</p>
         <p class="video-meta">YouTube</p>
       </a>
     </div>
@@ -841,6 +839,7 @@
   <script>
     (function () {
       var slides = [
+        { bg: "images/globalpipeline.jpeg", tag: "Substack", title: "South African Football's Global Pipeline Is Taking Shape", href: "https://euanspov.substack.com/p/south-african-footballs-global-pipeline?r=242wek&utm_campaign=post-expanded-share&utm_medium=post%20viewer" },
         { bg: "images/problemwithsafootball.jpeg", tag: "Substack", title: "The Problem With South African Football", href: "https://open.substack.com/pub/euanspov/p/the-challenges-within-south-african?r=242wek&utm_campaign=post&utm_medium=web" },
         { bg: "images/nodnajustrsa.jpeg", tag: "Substack", title: "NO DNA JUST RSA", href: "https://open.substack.com/pub/euanspov/p/no-dna-just-rsa?r=242wek&utm_campaign=post&utm_medium=web" },
         { bg: "images/worldhaschanged.jpeg", tag: "Medium", title: "The World Has Changed", href: "https://medium.com/@euanspov/the-world-has-changed-3f7a74b0fc1c" },
