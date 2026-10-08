@@ -122,7 +122,8 @@
   /* ============ HERO — rotating photo background ============ */
   .hero {
     position: relative;
-    min-height: 640px;
+    min-height: 470px;
+    background: var(--ink);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -130,7 +131,7 @@
     border-bottom: 1px solid var(--line-strong);
   }
 
-  .hero-bg { position: absolute; inset: 0; z-index: 0; }
+  .hero-bg { position: absolute; top: 2.2rem; bottom: 6.4rem; right: 3rem; width: 440px; z-index: 0; overflow: hidden; border: 1px solid rgba(232,221,200,0.25); }
   .hero-bg-slide {
     position: absolute;
     inset: 0;
@@ -144,14 +145,15 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(24,21,15,0) 0%, rgba(24,21,15,0) 70%, rgba(24,21,15,0.6) 100%);
+    background:
+      linear-gradient(180deg, rgba(24,21,15,0.05) 0%, rgba(24,21,15,0.3) 100%);
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
-    padding: 6rem 3rem 2.2rem;
-    max-width: 780px;
+    padding: 3.5rem 3rem 1.8rem;
+    max-width: 640px;
   }
   .hero-eyebrow {
     font-family: 'IBM Plex Mono', monospace;
@@ -164,7 +166,7 @@
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 800;
     font-optical-sizing: auto;
-    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
     letter-spacing: -0.03em;
     line-height: 1;
     color: var(--paper);
@@ -218,6 +220,7 @@
     transition: transform 0.15s, border-color 0.15s;
   }
   .hero-stat-icon-yt svg, .hero-stat-icon-tt svg { width: 13px; height: 13px; }
+  .hero-stat-icon-yt { background: #ff0000; border-color: #ff0000; }
   .hero-stat-icon-yt:hover, .hero-stat-icon-tt:hover { transform: translateY(-2px); border-color: var(--paper); }
   .hero-stat-num { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--paper); }
   .hero-stat-label { font-size: 11.5px; color: #beb192; }
@@ -451,15 +454,18 @@
   .barcode span { width: 2px; background: #8a8270; }
 
   /* ============ MOBILE ============ */
+  @media (max-width: 1100px) {
+    .hero-bg { position: relative; top: auto; bottom: auto; right: auto; width: auto; height: 240px; max-width: 440px; margin: 1.6rem 1.4rem 0; }
+  }
   @media (max-width: 900px) {
     .index-row { grid-template-columns: 32px 64px 1fr; }
     .index-link { grid-column: 2 / 4; }
     .design-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
-    nav { padding: 1rem 1.4rem; }
+    nav { padding: 1rem 1.4rem; position: static; gap: 0.8rem; }
     .nav-links, .nav-tags { display: none; }
-    .hero-content { padding: 4rem 1.4rem 1.8rem; }
+    .hero-content { padding: 3rem 1.4rem 1.6rem; }
     .hero-index { padding: 1rem 1.4rem; flex-wrap: wrap; }
     .hero-index-current { order: 3; flex-basis: 100%; }
     .section { padding: 3rem 1.4rem; }
